@@ -3,59 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal de Medicina - Vera Cruz</title>
+    <title>Medicina Diagn√≥stica x Medicina Intervencionista - Vera Cruz</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <nav>
-        <button onclick="showPage('home')">InÌcio</button>
-        <button onclick="showPage('diagnostica')">Medicina DiagnÛstica</button>
+        <button onclick="showPage('home')">Inicio</button>
+        <button onclick="showPage('diagnostica')">Medicina Diagnostica</button>
         <button onclick="showPage('intervencionista')">Medicina Intervencionista</button>
     </nav>
 
     <section id="home" class="page active">
-        <div class="hero">
-            <h1>Bem-vinda, Aline</h1>
-            <p>Selecione uma das ·reas abaixo para visualizar os procedimentos.</p>
-            <div class="main-cards">
-                <div class="card" onclick="showPage('diagnostica')">Medicina DiagnÛstica</div>
-                <div class="card" onclick="showPage('intervencionista')">Medicina Intervencionista</div>
-            </div>
+        <div style="text-align: center; padding: 50px;">
+            <h1>Bem-vindo!!!</h1>
+            <p>Selecione a √°rea desejada para consultar os procedimentos e detalhes.</p>
         </div>
     </section>
 
     <section id="diagnostica" class="page">
-        <h2>Medicina DiagnÛstica</h2>
+        <h2>Medicina Diagnostica</h2>
         <div class="grid-container">
             <div class="column">
                 <h3>Anestesia</h3>
-                <button onclick="openModal('Anestesia US', 'ExplicaÁ„o sobre anestesia para Ultrassom...')">Anestesia US</button>
-                <button onclick="openModal('Anestesia Tomo', 'ExplicaÁ„o sobre anestesia para Tomografia...')">Anestesia Tomo</button>
-                <button onclick="openModal('Anestesia RM', 'Anestesia para Resson‚ncia...')">Anestesia RM</button>
+                <button onclick="openModal('Anestesia US', 'Detalhes sobre Anestesia para exame de Ultrassom.')">Anestesia para Ultrassom</button>
+                <button onclick="openModal('Anestesia Tomo', 'Detalhes sobre Anestesia para exame de Tomografia.')">Anestesia para Tomografia</button>
+                <button onclick="openModal('Anestesia RM', 'Detalhes sobre Anestesia para exame de Resson√¢ncia.')">Anestesia para Resson√¢ncia</button>
             </div>
             <div class="column">
-                <h3>Resson‚ncia MagnÈtica</h3>
-                <button onclick="openModal('RM Cardio', 'Protocolos de RM CardÌaca...')">Cardio</button>
-                <button onclick="openModal('RM Fetal', 'Protocolos de RM Fetal...')">Fetal</button>
-                <button onclick="openModal('RM Neuro', 'Protocolos de RM NeurolÛgica...')">Neuro</button>
+                <h3>Densitometria</h3>
+                <button onclick="openModal('Avalia√ß√£o VFL', 'Informa√ß√µes sobre Avalia√ß√£o VFL.')">Avalia√ß√£o VFL</button>
+                <button onclick="openModal('Corpo Inteiro', 'Informa√ß√µes sobre Densitometria de Corpo Inteiro.')">Corpo Inteiro</button>
+                <button onclick="openModal('Um Segmento', 'Informa√ß√µes sobre Um Segmento.')">Um Segmento</button>
+                <button onclick="openModal('Dois Segmentos', 'Informa√ß√µes sobre Dois Segmentos.')">Dois Segmentos</button>
             </div>
+            <div class="column">
+                <h3>Mamografia</h3>
+                <button onclick="openModal('Digital', 'Detalhes da Mamografia Digital.')">Mamografia Digital</button>
+                <button onclick="openModal('Tomoss√≠ntese', 'Detalhes da Tomoss√≠ntese Mam√°ria.')">Tomoss√≠ntese Mam√°ria</button>
+                <button onclick="openModal('Amplia√ß√£o', 'Detalhes da Mamografia com Amplia√ß√£o.')">Mama Amplia√ß√£o</button>
             </div>
+            <div class="column">
+                <h3>Raio X</h3>
+                <button onclick="openModal('Abdome', 'Protocolo de Raio X Abdome.')">Abdome</button>
+                <button onclick="openModal('Coluna', 'Protocolo de Raio X Coluna.')">Coluna</button>
+                <button onclick="openModal('Membro Inferior', 'Protocolo de Raio X Membro Inferior.')">Membro Inferior</button>
+                <button onclick="openModal('Membro Superior', 'Protocolo de Raio X Membro Superior.')">Membro Superior</button>
+                <button onclick="openModal('Torax', 'Protocolo de Raio X T√≥rax.')">T√≥rax</button>
+            </div>
+            <div class="column">
+                <h3>Resson√¢ncia</h3>
+                <button onclick="openModal('RM Cardio', 'Protocolo RM Card√≠aca.')">Cardio</button>
+                <button onclick="openModal('RM Fetal', 'Protocolo RM Fetal.')">Fetal</button>
+                <button onclick="openModal('RM Medicina Interna', 'Protocolo RM Medicina Interna.')">Medicina Interna</button>
+                <button onclick="openModal('RM Neuro', 'Protocolo RM Neuro.')">Neuro</button>
+            </div>
+        </div>
     </section>
 
     <section id="intervencionista" class="page">
         <h2>Medicina Intervencionista</h2>
         <div class="grid-container">
             <div class="column">
-                <h3>Procedimento Profundo</h3>
-                <button onclick="openModal('AblaÁ„o', 'Detalhes sobre AblaÁ„o em Geral...')">AblaÁ„o em Geral</button>
-                <button onclick="openModal('BiÛpsia', 'Detalhes sobre BiÛpsia em Geral...')">BiÛpsia em Geral</button>
-                <button onclick="openModal('Drenagem', 'Protocolos de Drenagem...')">Drenagem em Geral</button>
+                <h3>Superficial</h3>
+                <button onclick="openModal('PAAF Superficial', 'Detalhes sobre PAAF Superficial.')">PAAF Superficial</button>
             </div>
             <div class="column">
-                <h3>Procedimento em Mama</h3>
-                <button onclick="openModal('Core Biopsy', 'ExplicaÁ„o sobre Core Biopsy...')">Core Biopsy</button>
-                <button onclick="openModal('Mamotomia', 'ExplicaÁ„o sobre Mamotomia...')">Mamotomia</button>
+                <h3>Profundo</h3>
+                <button onclick="openModal('Abla√ß√£o', 'Procedimento de Abla√ß√£o em Geral.')">Abla√ß√£o em Geral</button>
+                <button onclick="openModal('Bi√≥psia', 'Procedimento de Bi√≥psia em Geral.')">Bi√≥psia em Geral</button>
+                <button onclick="openModal('Nefrostomia', 'Procedimento de Nefrostomia.')">Nefrostomia</button>
+                <button onclick="openModal('Paracentese', 'Procedimento de Paracentese.')">Paracentese</button>
+            </div>
+            <div class="column">
+                <h3>Mama</h3>
+                <button onclick="openModal('Core Biopsy', 'Procedimento de Core Biopsy.')">Core Biopsy</button>
+                <button onclick="openModal('Mamotomia', 'Procedimento de Mamotomia.')">Mamotomia</button>
+                <button onclick="openModal('Marca√ß√£o', 'Procedimento de Marca√ß√£o.')">Marca√ß√£o</button>
+                <button onclick="openModal('PAAF Mama', 'Procedimento de PAAF em Mama.')">PAAF em Mama</button>
+            </div>
+            <div class="column">
+                <h3>Pr√≥stata</h3>
+                <button onclick="openModal('Transretal Simples', 'Pr√≥stata Transretal Simples.')">Transretal Simples</button>
+                <button onclick="openModal('Transretal com Fus√£o', 'Pr√≥stata Transretal com Fus√£o.')">Transretal com Fus√£o</button>
+                <button onclick="openModal('Transperineal Particular', 'Pr√≥stata Transperineal Particular.')">Transperineal Particular</button>
             </div>
         </div>
     </section>
@@ -63,25 +94,11 @@
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h2 id="modal-title">TÌtulo</h2>
-            <p id="modal-text">Texto explicativo aqui...</p>
+            <h2 id="modal-title"></h2>
+            <p id="modal-text"></p>
         </div>
     </div>
 
     <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
