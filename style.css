@@ -1,11 +1,12 @@
 /* Paleta de Cores Identidade Visual Hospital Vera Cruz Campinas */
-/* Azul Royal/Escuro: #004a99 (Principal) */
-/* Branco/Prata: Fundo e Detalhes */
+/* Baseado no Logo: Azul Royal e Verde Água/Turquesa */
 
 :root {
-    --primary-blue: #004a99; /* Azul Royal/Escuro Principal */
-    --primary-blue-dark: #003366; /* Azul mais escuro para hover */
+    --primary-blue: #004a99; /* Azul Royal/Escuro Principal (Nome e Símbolo) */
+    --primary-blue-dark: #003366; /* Azul mais escuro para hover no menu */
     --primary-blue-light: #e6f0fa; /* Azul claríssimo para fundos de ícone */
+    --secondary-teal: #00c2cb; /* Verde Água/Turquesa (Símbolo e Medicina Diagnóstica) */
+    --secondary-teal-dark: #0099a1; /* Verde água mais escuro para hover */
     --background-site: #f4f7f6; /* Cinza claríssimo/Prata para fundo geral */
     --text-main: #2c3e50; /* Cinza escuro para texto principal */
     --text-light: #7f8c8d; /* Cinza claro para subtítulos */
@@ -31,18 +32,19 @@ body {
 button, 
 .portal-card, 
 .close, 
-.back-btn {
+.back-btn,
+.nav-container button {
     cursor: pointer !important;
 }
 
-/* Menu Superior (Branco com detalhes em Azul Royal) */
+/* Menu Superior (Azul Royal conforme logo) */
 nav {
-    background-color: var(--white);
+    background-color: var(--primary-blue);
     padding: 15px 0;
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
 }
 
 .nav-container {
@@ -56,15 +58,15 @@ nav {
 
 .brand {
     font-size: 1.3rem;
-    color: var(--primary-blue);
+    color: var(--white);
     font-weight: 300;
 }
 
 .brand strong { font-weight: 700; }
 
 nav button {
-    background: var(--primary-blue);
-    border: none;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.4);
     color: var(--white);
     padding: 10px 25px;
     border-radius: 50px;
@@ -77,7 +79,8 @@ nav button {
 }
 
 nav button:hover {
-    background: var(--primary-blue-dark);
+    background: var(--white);
+    color: var(--primary-blue);
     transform: translateY(-1px);
 }
 
@@ -121,7 +124,7 @@ nav button:hover {
     flex-wrap: wrap;
 }
 
-/* Estilizando o Cartão do Portal (Branco com ícone Azul Royal) */
+/* Estilizando o Cartão do Portal (Branco com ícone colorido) */
 .portal-card {
     background: var(--white);
     width: 380px;
@@ -142,7 +145,7 @@ nav button:hover {
     box-shadow: var(--shadow-medium);
 }
 
-/* Ícones dos Cartões (Fundo Azul Claríssimo, Ícone Azul Royal) */
+/* Ícones dos Cartões (Fundo Claríssimo, Ícone Colorido) */
 .card-icon {
     width: 65px;
     height: 65px;
@@ -152,7 +155,16 @@ nav button:hover {
     align-items: center;
     font-size: 1.6rem;
     margin-right: 25px;
-    background-color: var(--primary-blue-light);
+}
+
+/* Cores específicas para cada cartão baseadas no logo */
+.portal-card.diagnostica .card-icon {
+    background-color: rgba(0, 194, 203, 0.1);
+    color: var(--secondary-teal);
+}
+
+.portal-card.intervencionista .card-icon {
+    background-color: rgba(0, 74, 153, 0.1);
     color: var(--primary-blue);
 }
 
@@ -172,7 +184,7 @@ nav button:hover {
     color: var(--text-light);
 }
 
-/* Seta do Cartão (Azul Royal no Hover) */
+/* Seta do Cartão (Colorida no Hover) */
 .card-arrow {
     position: absolute;
     right: 30px;
@@ -181,9 +193,12 @@ nav button:hover {
     transition: 0.3s;
 }
 
-.portal-card:hover .card-arrow {
+.portal-card.diagnostica:hover .card-arrow {
+    color: var(--secondary-teal);
+}
+
+.portal-card.intervencionista:hover .card-arrow {
     color: var(--primary-blue);
-    right: 25px;
 }
 
 /* PÁGINAS INTERNAS - Mapas de Exame */
@@ -251,7 +266,7 @@ nav button:hover {
     border-bottom: 1px solid #eee;
 }
 
-/* Botões de Procedimentos Modernos (Brancos, Azul Royal no Hover) */
+/* Botões de Procedimentos Modernos (Brancos, Verde Água/Azul Royal no Hover) */
 .column button {
     width: 100%;
     margin-bottom: 12px;
@@ -279,7 +294,16 @@ nav button:hover {
     transition: 0.3s;
 }
 
-.column button:hover {
+/* Diferenciando Hovers por Página Técnica */
+#diagnostica .column button:hover {
+    background: var(--secondary-teal);
+    color: var(--white);
+    border-color: var(--secondary-teal);
+    transform: translateX(4px);
+    font-weight: 600;
+}
+
+#intervencionista .column button:hover {
     background: var(--primary-blue);
     color: var(--white);
     border-color: var(--primary-blue);
@@ -292,7 +316,7 @@ nav button:hover {
     transform: translateX(2px);
 }
 
-/* Modal Moderno e Elegante (Azul Royal e Branco) */
+/* Modal Moderno e Elegante (Cores Ajustadas) */
 .modal {
     display: none;
     position: fixed;
@@ -318,7 +342,7 @@ nav button:hover {
 
 .modal-header-icon {
     font-size: 2.8rem;
-    color: var(--primary-blue);
+    color: var(--secondary-teal); /* Destaque em Verde Água no modal */
     margin-bottom: 20px;
 }
 
@@ -332,7 +356,7 @@ nav button:hover {
 .modal-divider {
     width: 60px;
     height: 4px;
-    background: var(--primary-blue);
+    background: var(--secondary-teal); /* Detalhe em Verde Água */
     border-radius: 10px;
     margin: 25px auto;
 }
