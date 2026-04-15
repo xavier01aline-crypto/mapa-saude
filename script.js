@@ -21,7 +21,7 @@ window.onclick = function(event) {
     if (event.target == document.getElementById('modal')) closeModal();
 }
 
-// LÓGICA DE GRADE
+// LÓGICA DE GRADE v5.1
 function gerarGrade() {
     const slot = parseInt(document.getElementById('slotTempo').value) || 20;
     const container = document.getElementById('gradeSemanal');
@@ -32,104 +32,115 @@ function gerarGrade() {
         let m = (min % 60).toString().padStart(2, '0');
         html += `<tr><td><strong>${h}:${m}</strong></td>`;
         for (let dia = 1; dia <= 5; dia++) {
-            const idU = `slot-${min}-${dia}`;
+            const idU = `s-${min}-${dia}`;
             html += `<td>
-                <select id="${idU}-sel" class="select-status" onchange="tratarSelecao(this)">
+                <select id="${idU}-sel" class="select-status" data-min="${min}" data-dia="${dia}" onchange="atualizarEstilo(this)">
                     <option value="eletivo">Eletivo</option>
                     <option value="respiro">Respiro</option>
                     <option value="bloqueio">Bloqueio</option>
+                    <option value="manutencao">Manutenção</option>
                     <option value="especifico">Específico</option>
                 </select>
-                <input id="${idU}-input" type="text" class="input-especifico" placeholder="...">
+                <input id="${idU}-obs" class="input-obs" placeholder="Obs...">
             </td>`;
         }
         html += `</tr>`;
     }
     container.innerHTML = html + `</tbody></table>`;
+    atualizarEstiloTudo();
 }
 
-function tratarSelecao(sel) {
-    const input = document.getElementById(sel.id.replace('-sel', '-input'));
+function atualizarEstilo(sel) {
     sel.className = 'select-status status-' + sel.value;
-    input.style.display = (sel.value === 'especifico') ? 'block' : 'none';
-    if (sel.value !== 'especifico') input.value = '';
     calcularProdutividade();
+}
+
+function atualizarEstiloTudo() {
+    document.querySelectorAll('.select-status').forEach(s => {
+        s.className = 'select-status status-' + s.value;
+    });
+    calcularProdutividade();
+}
+
+function aplicarEmMassa() {
+    const diaAlvo = document.getElementById('bulkDay').value;
+    const start = document.getElementById('bulkStart').value.split(':');
+    const end = document.getElementById('bulkEnd').value.split(':');
+    const status = document.getElementById('bulkStatus').value;
+    
+    const minStart = parseInt(start[0]) * 60 + parseInt(start[1]);
+    const minEnd = parseInt(end[0]) * 60 + parseInt(end[1]);
+
+    document.querySelectorAll('.select-status').forEach(sel => {
+        const selMin = parseInt(sel.dataset.min);
+        const selDia = sel.dataset.dia;
+        if ((diaAlvo === 'all' || diaAlvo === selDia) && (selMin >= minStart && selMin < minEnd)) {
+            sel.value = status;
+        }
+    });
+    atualizarEstiloTudo();
 }
 
 function salvarAgenda() {
     const key = document.getElementById('agendaSelect').value;
-    const selects = document.querySelectorAll('.select-status');
-    const inputs = document.querySelectorAll('.input-especifico');
     const dados = {
         titulo: document.getElementById('renameAgenda').value,
         periodo: document.getElementById('agendaPeriodo').value,
         slot: document.getElementById('slotTempo').value,
         mapa: []
     };
-
-    selects.forEach((sel, i) => {
-        dados.mapa.push({ id: sel.id, st: sel.value, txt: inputs[i].value });
+    document.querySelectorAll('.select-status').forEach(s => {
+        const obs = document.getElementById(s.id.replace('-sel', '-obs')).value;
+        dados.mapa.push({ id: s.id, st: s.value, obs: obs });
     });
-
-    localStorage.setItem('vCruz_' + key, JSON.stringify(dados));
+    localStorage.setItem('vc_v51_'+key, JSON.stringify(dados));
     document.getElementById('display-titulo').innerText = dados.titulo;
-    document.getElementById('display-periodo').innerText = dados.periodo ? "Período: " + dados.periodo : "";
-    alert("Gravado com sucesso!");
+    document.getElementById('display-periodo').innerText = dados.periodo ? "Vigência: " + dados.periodo : "";
+    alert("Parametrização Gravada!");
 }
 
 function carregarAgendaSalva() {
     const key = document.getElementById('agendaSelect').value;
-    const salvo = localStorage.getItem('vCruz_' + key);
-    
+    const salvo = localStorage.getItem('vc_v51_'+key);
     if (salvo) {
         const d = JSON.parse(salvo);
         document.getElementById('renameAgenda').value = d.titulo || "";
         document.getElementById('agendaPeriodo').value = d.periodo || "";
         document.getElementById('slotTempo').value = d.slot;
-        document.getElementById('display-titulo').innerText = d.titulo || "";
-        document.getElementById('display-periodo').innerText = d.periodo ? "Período: " + d.periodo : "";
-        
         gerarGrade();
-
         d.mapa.forEach(item => {
             const sel = document.getElementById(item.id);
-            const inp = document.getElementById(item.id.replace('-sel', '-input'));
-            if (sel) {
-                sel.value = item.st;
-                sel.className = 'select-status status-' + item.st;
-                if (item.st === 'especifico') { inp.style.display = 'block'; inp.value = item.txt; }
-            }
+            const obs = document.getElementById(item.id.replace('-sel', '-obs'));
+            if (sel) { sel.value = item.st; if (obs) obs.value = item.obs || ""; }
         });
+        document.getElementById('display-titulo').innerText = d.titulo;
+        document.getElementById('display-periodo').innerText = d.periodo ? "Vigência: " + d.periodo : "";
     } else {
-        document.getElementById('renameAgenda').value = "";
-        document.getElementById('agendaPeriodo').value = "";
-        document.getElementById('display-titulo').innerText = "";
-        document.getElementById('display-periodo').innerText = "";
         gerarGrade();
     }
-    calcularProdutividade();
+    atualizarEstiloTudo();
+}
+
+function calcularProdutividade() {
+    const selects = document.querySelectorAll('.select-status');
+    let ex = 0, ma = 0, re = 0;
+    selects.forEach(s => {
+        if (s.value === 'eletivo' || s.value === 'especifico') ex++;
+        if (s.value === 'manutencao') ma++;
+        if (s.value === 'respiro' || s.value === 'bloqueio') re++;
+    });
+    document.getElementById('kpiExames').innerText = ex;
+    document.getElementById('kpiManutencao').innerText = ma;
+    document.getElementById('kpiRespiros').innerText = re;
 }
 
 function exportarImagem() {
-    const area = document.getElementById('capture-area');
-    const nome = document.getElementById('renameAgenda').value || 'agenda';
-    html2canvas(area).then(canvas => {
+    html2canvas(document.getElementById('capture-area')).then(canvas => {
         const link = document.createElement('a');
-        link.download = `${nome}.png`;
+        link.download = (document.getElementById('renameAgenda').value || 'agenda') + '.png';
         link.href = canvas.toDataURL();
         link.click();
     });
 }
 
-function calcularProdutividade() {
-    const selects = document.querySelectorAll('.select-status');
-    let ex = 0, pe = 0;
-    selects.forEach(s => {
-        if (s.value === 'eletivo' || s.value === 'especifico') ex++;
-        else pe++;
-    });
-    document.getElementById('kpiExames').innerText = ex;
-    document.getElementById('kpiRespiros').innerText = pe;
-}
-
-window.onload = () => { carregarAgendaSalva(); };
+window.onload = () => carregarAgendaSalva();
