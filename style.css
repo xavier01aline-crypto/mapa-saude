@@ -1,7 +1,7 @@
 :root {
-    --primary-blue: #004a99; /* Azul Logo Vera Cruz */
-    --sidebar-bg: #002d5c; /* Azul Escuro Sidebar */
-    --secondary-teal: #00c2cb; /* Verde Água Logo Vera Cruz */
+    --primary-blue: #004a99;
+    --sidebar-bg: #002d5c;
+    --secondary-teal: #00c2cb;
     --white: #ffffff;
     --bg-gray: #f4f7f9;
     --text-main: #334155;
@@ -15,15 +15,16 @@ body { font-family: 'Poppins', sans-serif; margin: 0; display: flex; background:
 button, .portal-card, .close, .nav-btn { cursor: pointer !important; }
 
 /* Sidebar */
-.sidebar { width: 260px; background: var(--sidebar-bg); color: white; display: flex; flex-direction: column; z-index: 100; }
+.sidebar { width: 260px; background: var(--sidebar-bg); color: white; display: flex; flex-direction: column; z-index: 100; flex-shrink: 0; }
 .sidebar-header { padding: 40px 25px; border-bottom: 1px solid rgba(255,255,255,0.1); }
 .brand { font-size: 0.9rem; color: #ced4da; }
 .brand strong { font-size: 1.4rem; color: var(--secondary-teal); display: block; }
 
-.sidebar-nav { flex: 1; padding: 25px 0; }
+.sidebar-nav { flex: 1; padding: 25px 0; overflow-y: auto; }
 .nav-btn {
     width: 100%; background: transparent; border: none; color: #adb5bd;
-    padding: 15px 25px; text-align: left; font-size: 0.9rem; display: flex; align-items: center; gap: 15px; transition: 0.3s;
+    padding: 15px 25px; text-align: left; font-size: 0.85rem; display: flex; align-items: center; gap: 12px; transition: 0.3s;
+    line-height: 1.2;
 }
 .nav-btn:hover { color: white; background: rgba(255,255,255,0.05); }
 .active-btn { color: white; background: var(--primary-blue); border-left: 5px solid var(--secondary-teal); font-weight: 600; }
@@ -37,7 +38,7 @@ button, .portal-card, .close, .nav-btn { cursor: pointer !important; }
 .version-tag { position: absolute; bottom: 20px; right: 20px; font-size: 0.75rem; color: #94a3b8; font-weight: 500; }
 
 .page-header { display: flex; align-items: center; gap: 25px; border-bottom: 2px solid var(--secondary-teal); margin-bottom: 40px; padding-bottom: 15px; }
-.page-header h2 { color: var(--primary-blue); margin: 0; font-size: 1.8rem; }
+.page-header h2 { color: var(--primary-blue); margin: 0; font-size: 1.6rem; }
 
 .back-btn { background: white; border: 1px solid #cbd5e1; padding: 8px 15px; border-radius: 8px; color: var(--text-main); font-weight: 500; transition: 0.2s; }
 .back-btn:hover { background: #f1f5f9; border-color: var(--primary-blue); color: var(--primary-blue); }
