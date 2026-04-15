@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medicina Diagnóstica x Medicina Intervencionista - Vera Cruz</title>
+    <title>Portal de Exames e Procedimentos Interno - Vera Cruz Medicina Diagnostica</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,39 +16,42 @@
 
     <section id="home" class="page active">
         <div style="text-align: center; padding: 50px;">
-            <h1>Bem-vindo!!!</h1>
-            <p>Selecione a área desejada para consultar os procedimentos e detalhes.</p>
+            <h1>Bem-vindo!</h1>
+            <p>Selecione a área desejada para consultar os procedimentos e detalhes estruturados.</p>
+            <div style="display: flex; justify-content: center; gap: 20px; margin-top: 30px;">
+                <div style="cursor:pointer; padding: 20px; background: #00c2cb; color: white; border-radius: 10px;" onclick="showPage('diagnostica')">Medicina Diagnóstica</div>
+                <div style="cursor:pointer; padding: 20px; background: #005c69; color: white; border-radius: 10px;" onclick="showPage('intervencionista')">Medicina Intervencionista</div>
+            </div>
         </div>
     </section>
 
     <section id="diagnostica" class="page">
-        <h2>Medicina Diagnostica</h2>
+        <h2>Medicina Diagnóstica</h2>
         <div class="grid-container">
             <div class="column">
                 <h3>Anestesia</h3>
-                <button onclick="openModal('Anestesia US', 'Detalhes sobre Anestesia para exame de Ultrassom.')">Anestesia para Ultrassom</button>
-                <button onclick="openModal('Anestesia Tomo', 'Detalhes sobre Anestesia para exame de Tomografia.')">Anestesia para Tomografia</button>
-                <button onclick="openModal('Anestesia RM', 'Detalhes sobre Anestesia para exame de Ressonância.')">Anestesia para Ressonância</button>
+                <button onclick="openModal('Anestesia US', 'Detalhes sobre Anestesia para Ultrassom.')">Anestesia para US</button>
+                <button onclick="openModal('Anestesia Tomo', 'Detalhes sobre Anestesia para Tomografia.')">Anestesia para Tomo</button>
+                <button onclick="openModal('Anestesia RM', 'Detalhes sobre Anestesia para Ressonância.')">Anestesia para RM</button>
             </div>
             <div class="column">
                 <h3>Densitometria</h3>
                 <button onclick="openModal('Avaliação VFL', 'Informações sobre Avaliação VFL.')">Avaliação VFL</button>
-                <button onclick="openModal('Corpo Inteiro', 'Informações sobre Densitometria de Corpo Inteiro.')">Corpo Inteiro</button>
-                <button onclick="openModal('Um Segmento', 'Informações sobre Um Segmento.')">Um Segmento</button>
-                <button onclick="openModal('Dois Segmentos', 'Informações sobre Dois Segmentos.')">Dois Segmentos</button>
+                <button onclick="openModal('Corpo Inteiro', 'Densitometria de Corpo Inteiro.')">Corpo Inteiro</button>
+                <button onclick="openModal('Um Segmento', 'Densitometria de Um Segmento.')">Um Segmento</button>
+                <button onclick="openModal('Dois Segmentos', 'Densitometria de Dois Segmentos.')">Dois Segmentos</button>
             </div>
             <div class="column">
                 <h3>Mamografia</h3>
-                <button onclick="openModal('Digital', 'Detalhes da Mamografia Digital.')">Mamografia Digital</button>
-                <button onclick="openModal('Tomossíntese', 'Detalhes da Tomossíntese Mamária.')">Tomossíntese Mamária</button>
+                <button onclick="openModal('Digital', 'Detalhes da Mamografia Digital.')">Digital</button>
+                <button onclick="openModal('Tomossíntese', 'Detalhes da Tomossíntese Mamária.')">Tomossíntese</button>
                 <button onclick="openModal('Ampliação', 'Detalhes da Mamografia com Ampliação.')">Mama Ampliação</button>
             </div>
             <div class="column">
                 <h3>Raio X</h3>
                 <button onclick="openModal('Abdome', 'Protocolo de Raio X Abdome.')">Abdome</button>
                 <button onclick="openModal('Coluna', 'Protocolo de Raio X Coluna.')">Coluna</button>
-                <button onclick="openModal('Membro Inferior', 'Protocolo de Raio X Membro Inferior.')">Membro Inferior</button>
-                <button onclick="openModal('Membro Superior', 'Protocolo de Raio X Membro Superior.')">Membro Superior</button>
+                <button onclick="openModal('Membros', 'Protocolo de Raio X Membros.')">Membros Inf/Sup</button>
                 <button onclick="openModal('Torax', 'Protocolo de Raio X Tórax.')">Tórax</button>
             </div>
             <div class="column">
@@ -57,6 +60,19 @@
                 <button onclick="openModal('RM Fetal', 'Protocolo RM Fetal.')">Fetal</button>
                 <button onclick="openModal('RM Medicina Interna', 'Protocolo RM Medicina Interna.')">Medicina Interna</button>
                 <button onclick="openModal('RM Neuro', 'Protocolo RM Neuro.')">Neuro</button>
+            </div>
+            <div class="column">
+                <h3>Tomografia</h3>
+                <button onclick="openModal('Tomo Angio', 'Protocolos de Angiotomografia.')">Angio</button>
+                <button onclick="openModal('Tomo Medicina Interna', 'Protocolos de Medicina Interna.')">Medicina Interna</button>
+                <button onclick="openModal('Tomo Neuro', 'Protocolos de Neurorradiologia.')">Neuro</button>
+                <button onclick="openModal('Tomo Score Cálcio', 'Protocolo Score de Cálcio.')">Score de Cálcio</button>
+            </div>
+            <div class="column">
+                <h3>Ultrassonografia</h3>
+                <button onclick="openModal('US Geral', 'Exames de Ultrassonografia Geral.')">Geral</button>
+                <button onclick="openModal('US Doppler', 'Exames de Ultrassonografia com Doppler.')">Doppler</button>
+                <button onclick="openModal('US Obstétrica', 'Exames de Ultrassonografia Obstétrica.')">Obstétrica</button>
             </div>
         </div>
     </section>
@@ -70,8 +86,9 @@
             </div>
             <div class="column">
                 <h3>Profundo</h3>
-                <button onclick="openModal('Ablação', 'Procedimento de Ablação em Geral.')">Ablação em Geral</button>
-                <button onclick="openModal('Biópsia', 'Procedimento de Biópsia em Geral.')">Biópsia em Geral</button>
+                <button onclick="openModal('Ablação', 'Procedimento de Ablação.')">Ablação em Geral</button>
+                <button onclick="openModal('Biópsia', 'Procedimento de Biópsia.')">Biópsia em Geral</button>
+                <button onclick="openModal('Drenagem', 'Procedimento de Drenagem.')">Drenagem em Geral</button>
                 <button onclick="openModal('Nefrostomia', 'Procedimento de Nefrostomia.')">Nefrostomia</button>
                 <button onclick="openModal('Paracentese', 'Procedimento de Paracentese.')">Paracentese</button>
             </div>
@@ -86,7 +103,14 @@
                 <h3>Próstata</h3>
                 <button onclick="openModal('Transretal Simples', 'Próstata Transretal Simples.')">Transretal Simples</button>
                 <button onclick="openModal('Transretal com Fusão', 'Próstata Transretal com Fusão.')">Transretal com Fusão</button>
-                <button onclick="openModal('Transperineal Particular', 'Próstata Transperineal Particular.')">Transperineal Particular</button>
+                <button onclick="openModal('Transperineal', 'Próstata Transperineal Particular.')">Transperineal Particular</button>
+            </div>
+            <div class="column">
+                <h3>Procedimentos Diversos</h3>
+                <button onclick="openModal('Anestesia Interv', 'Anestesia para procedimentos intervencionistas.')">Anestesia</button>
+                <button onclick="openModal('Artro RM', 'Procedimento de Artro Ressonância.')">Artro RM</button>
+                <button onclick="openModal('Consulta', 'Consulta pré-procedimento.')">Consulta</button>
+                <button onclick="openModal('Dacrio', 'Exame de Dacriocistografia.')">Dacrio</button>
             </div>
         </div>
     </section>
@@ -95,7 +119,8 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <h2 id="modal-title"></h2>
-            <p id="modal-text"></p>
+            <hr>
+            <p id="modal-text" style="margin-top: 20px;"></p>
         </div>
     </div>
 
