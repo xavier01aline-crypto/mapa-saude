@@ -21,7 +21,7 @@
 
     <section id="home" class="page active">
         <div class="welcome-container">
-            <h1>Olá, Colaborador (a)!.</h1>
+            <h1>Olá!</h1>
             <p>Selecione a área desejada para consultar os protocolos estruturados do hospital.</p>
             
             <div class="main-card-container">
@@ -105,4 +105,77 @@
                 <button onclick="openModal('Cardio', 'Protocolos de Tomografia Cardio.')">Cardio</button>
                 <button onclick="openModal('Coluna', 'Protocolos de Tomografia Coluna.')">Coluna</button>
                 <button onclick="openModal('Medicina Interna', 'Protocolos de Tomografia Medicina Interna.')">Medicina Interna</button>
-                <button onclick="openModal('
+                <button onclick="openModal('Musculo', 'Protocolos de Tomografia Músculo.')">Musculo</button>
+                <button onclick="openModal('Neuro', 'Protocolos de Tomografia Neuro.')">Neuro</button>
+            </div>
+            <div class="column">
+                <h3>Ultrassonografia</h3>
+                <button onclick="openModal('US Doppler', 'Exames de US Doppler.')">US Doppler</button>
+                <button onclick="openModal('US Geral', 'Exames de US Geral.')">US Geral</button>
+                <button onclick="openModal('US Mama', 'Exames de US Mama.')">US Mama</button>
+                <button onclick="openModal('Us Musculo', 'Exames de US Músculo.')">Us Musculo</button>
+                <button onclick="openModal('Us Obstetrico', 'Exames de US Obstétrico.')">Us Obstetrico</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="intervencionista" class="page">
+        <div class="page-header">
+            <h2>Medicina Intervencionista</h2>
+            <button class="back-btn" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> Voltar</button>
+        </div>
+        <div class="grid-container">
+            <div class="column">
+                <h3>Proc. Superficial</h3>
+                <button style="height: 100px; font-weight: bold;" onclick="openModal('PAAF Superficial', 'Detalhes sobre PAAF Superficial.')">PAAF SUPERFICIAL</button>
+            </div>
+            <div class="column">
+                <h3>Proc. Profundo</h3>
+                <button onclick="openModal('Ablação em Geral', 'Informações sobre Ablação.')">Ablação em Geral</button>
+                <button onclick="openModal('Biópsia em Geral', 'Informações sobre Biópsia.')">Biópsia em Geral</button>
+                <button onclick="openModal('Colangiografia', 'Informações sobre Colangiografia.')">Colangiografia</button>
+                <button onclick="openModal('Drenagem em Geral', 'Informações sobre Drenagem.')">Drenagem em Geral</button>
+                <button onclick="openModal('Nefrostomia', 'Informações sobre Nefrostomia.')">Nefrostomia</button>
+                <button onclick="openModal('PAAF Profundo', 'Informações sobre PAAF Profundo.')">PAAF Profundo</button>
+                <button onclick="openModal('Paracentese', 'Informações sobre Paracentese.')">Paracentese</button>
+                <button onclick="openModal('Toraconcetese', 'Informações sobre Toraconcetese.')">Toraconcetese</button>
+            </div>
+            <div class="column">
+                <h3>Proc. em Mama</h3>
+                <button onclick="openModal('Core Biopsy', 'Detalhes sobre Core Biopsy.')">Core Biopsy</button>
+                <button onclick="openModal('Mamotomia', 'Detalhes sobre Mamotomia.')">Mamotomia</button>
+                <button onclick="openModal('Marcação', 'Detalhes sobre Marcação.')">Marcação</button>
+                <button onclick="openModal('PAAF em Mama', 'Detalhes sobre PAAF em Mama.')">PAAF em Mama</button>
+            </div>
+            <div class="column">
+                <h3>Proc. em Próstata</h3>
+                <button onclick="openModal('Transretal Simples', 'Informações sobre Transretal Simples.')">Transretal Simples</button>
+                <button onclick="openModal('Transretal com Fusão', 'Informações sobre Transretal com Fusão.')">Transretal com Fusão</button>
+                <button onclick="openModal('Transperineal Particular', 'Informações sobre Transperineal Particular.')">Transperineal Particular</button>
+                <button onclick="openModal('Taxa de Perfusão', 'Informações sobre Taxa de Perfusão.')">Taxa de Perfusão</button>
+            </div>
+            <div class="column">
+                <h3>Proc. Diversos</h3>
+                <button onclick="openModal('Anestesia', 'Informações sobre Anestesia.')">Anestesia</button>
+                <button onclick="openModal('Artro RM', 'Informações sobre Artro RM.')">Artro RM</button>
+                <button onclick="openModal('Consulta', 'Informações sobre Consulta.')">Consulta</button>
+                <button onclick="openModal('Dacrio', 'Informações sobre Dacrio.')">Dacrio</button>
+            </div>
+        </div>
+    </section>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div class="modal-header-icon">
+                <i class="fas fa-file-alt"></i>
+            </div>
+            <h2 id="modal-title"></h2>
+            <div class="modal-divider"></div>
+            <p id="modal-text"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
