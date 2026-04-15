@@ -11,6 +11,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,21 +22,11 @@
             <span class="brand">MEDICINA DIAGNÓSTICA<br><strong>HOSPITAL VERA CRUZ</strong></span>
         </div>
         <nav class="sidebar-nav">
-            <button onclick="showPage('home')" class="nav-btn active-btn" id="btn-home">
-                <i class="fas fa-th-large"></i> Início
-            </button>
-            <button onclick="showPage('diagnostica')" class="nav-btn" id="btn-diagnostica">
-                <i class="fas fa-microscope"></i> Diagnóstica
-            </button>
-            <button onclick="showPage('intervencionista')" class="nav-btn" id="btn-intervencionista">
-                <i class="fas fa-user-md"></i> Intervencionista
-            </button>
-            <button onclick="showPage('fluxos')" class="nav-btn" id="btn-fluxos">
-                <i class="fas fa-sitemap"></i> Departamentos
-            </button>
-            <button onclick="showPage('agendas')" class="nav-btn" id="btn-agendas">
-                <i class="fas fa-calendar-check"></i> Parametrização de Agenda
-            </button>
+            <button onclick="showPage('home')" class="nav-btn active-btn" id="btn-home"><i class="fas fa-th-large"></i> Início</button>
+            <button onclick="showPage('diagnostica')" class="nav-btn" id="btn-diagnostica"><i class="fas fa-microscope"></i> Diagnóstica</button>
+            <button onclick="showPage('intervencionista')" class="nav-btn" id="btn-intervencionista"><i class="fas fa-user-md"></i> Intervencionista</button>
+            <button onclick="showPage('fluxos')" class="nav-btn" id="btn-fluxos"><i class="fas fa-sitemap"></i> Departamentos</button>
+            <button onclick="showPage('agendas')" class="nav-btn" id="btn-agendas"><i class="fas fa-calendar-check"></i> Parametrização de Agenda</button>
         </nav>
     </aside>
 
@@ -59,7 +51,7 @@
                     </div>
                 </div>
             </div>
-            <div class="version-tag">v 4.5 - 2026</div>
+            <div class="version-tag">v 5.0 - 2026</div>
         </section>
 
         <section id="diagnostica" class="page">
@@ -125,7 +117,6 @@
                     <button onclick="openModal('US Obstetrico', 'US Obstétrico.')">Us Obstetrico</button>
                 </div>
             </div>
-            <div class="version-tag">v 4.5 - 2026</div>
         </section>
 
         <section id="intervencionista" class="page">
@@ -171,7 +162,6 @@
                     <button onclick="openModal('Dacrio', 'Estudo Vias Lacrimais.')">Dacrio</button>
                 </div>
             </div>
-            <div class="version-tag">v 4.5 - 2026</div>
         </section>
 
         <section id="fluxos" class="page">
@@ -195,7 +185,6 @@
                     <button onclick="openModal('Médico', 'Análise e Laudo.')">Médico Radiologista</button>
                 </div>
             </div>
-            <div class="version-tag">v 4.5 - 2026</div>
         </section>
 
         <section id="agendas" class="page">
@@ -205,30 +194,50 @@
             </div>
             <div class="agenda-container-full">
                 <div class="config-panel">
-                    <h3>Configuração da Grade (06:00 - 23:00)</h3>
-                    <div class="form-row">
+                    <div class="agenda-edit-header">
                         <div class="input-group">
-                            <label>Agenda:</label>
-                            <select id="agendaSelect">
-                                <option>Agenda 01 - RM</option>
-                                <option>Agenda 02 - RM</option>
-                                <option>Agenda 03 - TC</option>
-                                <option>Agenda 04 - TC</option>
-                                <option>Agenda 05 - US</option>
-                                <option>Agenda 06 - US</option>
-                                <option>Agenda 07 - RX</option>
-                                <option>Agenda 08 - Mamografia</option>
-                                <option>Agenda 09 - Intervencionista</option>
+                            <label>Selecionar Agenda:</label>
+                            <select id="agendaSelect" onchange="carregarAgendaSalva()">
+                                <option value="agenda1">Agenda 01 - RM</option>
+                                <option value="agenda2">Agenda 02 - RM</option>
+                                <option value="agenda3">Agenda 03 - TC</option>
+                                <option value="agenda4">Agenda 04 - TC</option>
+                                <option value="agenda5">Agenda 05 - US</option>
+                                <option value="agenda6">Agenda 06 - US</option>
+                                <option value="agenda7">Agenda 07 - RX</option>
+                                <option value="agenda8">Agenda 08 - Mamografia</option>
+                                <option value="agenda9">Agenda 09 - Intervencionista</option>
                             </select>
                         </div>
                         <div class="input-group">
-                            <label>Slot (minutos):</label>
+                            <label>Nome Personalizado:</label>
+                            <input type="text" id="renameAgenda" placeholder="Ex: RM Sala 01 - Unidade Castelo">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label>Período:</label>
+                            <input type="text" id="agendaPeriodo" placeholder="Ex: 01/04/26 a 30/04/26">
+                        </div>
+                        <div class="input-group">
+                            <label>Slot (min):</label>
                             <input type="number" id="slotTempo" value="20" oninput="gerarGrade()">
                         </div>
                     </div>
-                    <div id="gradeSemanal" class="grade-scroll"></div>
-                    <button type="button" class="exec-btn" onclick="calcularProdutividade()">Calcular Capacidade <i class="fas fa-calculator"></i></button>
+
+                    <div id="capture-area" style="background: white; padding: 20px; border-radius: 10px;">
+                        <h3 id="display-titulo" style="color: var(--primary-blue); margin: 0;"></h3>
+                        <p id="display-periodo" style="color: #64748b; margin: 5px 0 15px 0; font-size: 0.9rem;"></p>
+                        <div id="gradeSemanal" class="grade-scroll"></div>
+                    </div>
+                    
+                    <div class="btn-group-agenda">
+                        <button type="button" class="save-btn" onclick="salvarAgenda()"><i class="fas fa-save"></i> Gravar</button>
+                        <button type="button" class="export-btn" onclick="exportarImagem()"><i class="fas fa-file-image"></i> Exportar Imagem</button>
+                    </div>
                 </div>
+
                 <div class="result-panel">
                     <h3>Capacidade Produtiva</h3>
                     <div class="kpi-grid">
@@ -237,14 +246,12 @@
                             <span id="kpiExames" class="kpi-value">0</span>
                         </div>
                         <div class="kpi-card highlight">
-                            <span class="kpi-label">Respiros / Bloqueios</span>
+                            <span class="kpi-label">Perdas Técnicas</span>
                             <span id="kpiRespiros" class="kpi-value">0</span>
                         </div>
                     </div>
-                    <div id="visualizacaoFinal"></div>
                 </div>
             </div>
-            <div class="version-tag">v 4.5 - 2026</div>
         </section>
     </main>
 
