@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal de Fluxos Medicina Diagnóstica - Vera Cruz</title>
+    <title>Fluxos Medicina Diagnóstica - Vera Cruz</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -29,8 +29,8 @@
             <button onclick="showPage('fluxos')" class="nav-btn" id="btn-fluxos">
                 <i class="fas fa-sitemap"></i> Departamentos
             </button>
-            <button onclick="showPage('parametrizacao')" class="nav-btn" id="btn-parametrizacao">
-                <i class="fas fa-calendar-check"></i> Parametrização
+            <button onclick="showPage('agendas')" class="nav-btn" id="btn-agendas">
+                <i class="fas fa-calendar-check"></i> Consulta Parametrização de Agenda
             </button>
         </nav>
     </aside>
@@ -40,7 +40,7 @@
         <section id="home" class="page active">
             <div class="welcome-container">
                 <h1>Bem-vindo ao Portal de Protocolos</h1>
-                <p>Central de suporte técnico e fluxos operacionais do Setor</p>
+                <p>Central de suporte técnico e fluxos operacionais da instituição.</p>
                 <div class="main-card-container">
                     <div class="portal-card" onclick="showPage('diagnostica')">
                         <div class="card-icon blue"><i class="fas fa-notes-medical"></i></div>
@@ -56,7 +56,7 @@
                     </div>
                 </div>
             </div>
-            <div class="version-tag">v 4.0 - 2026</div>
+            <div class="version-tag">v 4.2 - 2026</div>
         </section>
 
         <section id="diagnostica" class="page">
@@ -109,7 +109,7 @@
                     <button onclick="openModal('Obstetrico', 'US Obstétrica e Fetal.')">Us Obstetrico</button>
                 </div>
             </div>
-            <div class="version-tag">v 4.0 - 2026</div>
+            <div class="version-tag">v 4.2 - 2026</div>
         </section>
 
         <section id="intervencionista" class="page">
@@ -141,16 +141,17 @@
                     <h3>Próstata</h3>
                     <button onclick="openModal('Simples', 'Biópsia Transretal.')">Transretal Simples</button>
                     <button onclick="openModal('Fusão', 'Biópsia RM+US.')">Fusão de Imagem</button>
-                    <button onclick="openModal('Perfusão', 'Taxa de Perfusão.')">Taxa de Perfusão</button>
+                    <button onclick="openModal('Fusão', 'Taxa de Fusão.')">Taxa de Fusão</button>
                 </div>
                 <div class="column">
                     <h3>Diversos</h3>
+                    <button onclick="openModal('Anestesia', 'Anestesia para procedimentos.')">Anestesia</button>
                     <button onclick="openModal('Artro RM', 'Injeção articular.')">Artro RM</button>
                     <button onclick="openModal('Consulta', 'Consulta Médica.')">Consulta</button>
                     <button onclick="openModal('Dacrio', 'Vias lacrimais.')">Dacrio</button>
                 </div>
             </div>
-            <div class="version-tag">v 4.0 - 2026</div>
+            <div class="version-tag">v 4.2 - 2026</div>
         </section>
 
         <section id="fluxos" class="page">
@@ -174,24 +175,24 @@
                     <button onclick="openModal('Médico', 'Fluxo de Laudo.')">Médico Radiologista</button>
                 </div>
             </div>
-            <div class="version-tag">v 4.0 - 2026</div>
+            <div class="version-tag">v 4.2 - 2026</div>
         </section>
 
-        <section id="parametrizacao" class="page">
+        <section id="agendas" class="page">
             <div class="page-header">
                 <button class="back-btn" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> Voltar</button>
-                <h2>Parametrização de Agenda</h2>
+                <h2>Consulta Parametrização de Agenda</h2>
             </div>
             <div class="welcome-container" style="text-align: left; padding: 0;">
-                <p>Módulo de configuração de tempos, grades e regras de agendamento por modalidade.</p>
-                <div class="column" style="width: 300px;">
-                    <h3>Configurações</h3>
-                    <button onclick="alert('Funcionalidade em desenvolvimento')">Grades de Horários</button>
-                    <button onclick="alert('Funcionalidade em desenvolvimento')">Bloqueios de Agenda</button>
-                    <button onclick="alert('Funcionalidade em desenvolvimento')">Tempos por Exame</button>
+                <p>Módulo de consulta de tempos técnicos, grades operacionais e regras de agendamento.</p>
+                <div class="column" style="width: 320px;">
+                    <h3>Painel de Controle</h3>
+                    <button onclick="alert('Funcionalidade em desenvolvimento')">Visualizar Grades</button>
+                    <button onclick="alert('Funcionalidade em desenvolvimento')">Consultar Bloqueios</button>
+                    <button onclick="alert('Funcionalidade em desenvolvimento')">Regras de Exames</button>
                 </div>
             </div>
-            <div class="version-tag">v 4.0 - 2026</div>
+            <div class="version-tag">v 4.2 - 2026</div>
         </section>
     </main>
 
