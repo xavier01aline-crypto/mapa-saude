@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal de Exames e Procedimentos Interno - Vera Cruz</title>
+    <title>Portal de Consulta Exames e Procedimentos Interno - Vera Cruz</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -14,37 +14,37 @@
 
     <nav>
         <div class="nav-container">
-            <span class="brand">Hospital <strong>Vera Cruz</strong></span>
-            <button onclick="showPage('home')"><i class="fas fa-home"></i> Início</button>
+            <span class="brand">MEDICINA DIAGNÓSTICA <strong>HOSPITAL VERA CRUZ</strong></span>
+            <button onclick="showPage('home')"><i class="fas fa-home"></i> Página Inicial</button>
         </div>
     </nav>
 
     <section id="home" class="page active">
         <div class="welcome-container">
             <h1>Olá!</h1>
-            <p>Selecione a área desejada para consultar os protocolos estruturados do hospital.</p>
+            <p>Selecione a área desejada para consultar os protocolos estruturados.</p>
             
             <div class="main-card-container">
-                <div class="portal-card" onclick="showPage('diagnostica')">
+                <div class="portal-card diagnostica" onclick="showPage('diagnostica')">
                     <div class="card-icon">
                         <i class="fas fa-microscope"></i>
                     </div>
                     <div class="card-content">
                         <h2>Medicina Diagnóstica</h2>
-                        <p>Consultar exames e laudos</p>
+                        <p>Consultar códigos e exames</p>
                     </div>
                     <div class="card-arrow">
                         <i class="fas fa-chevron-right"></i>
                     </div>
                 </div>
                 
-                <div class="portal-card" onclick="showPage('intervencionista')">
+                <div class="portal-card intervencionista" onclick="showPage('intervencionista')">
                     <div class="card-icon">
                         <i class="fas fa-user-md"></i>
                     </div>
                     <div class="card-content">
                         <h2>Medicina Intervencionista</h2>
-                        <p>Procedimentos e consultas</p>
+                        <p>Códigos e Procedimentos</p>
                     </div>
                     <div class="card-arrow">
                         <i class="fas fa-chevron-right"></i>
@@ -57,7 +57,7 @@
     <section id="diagnostica" class="page">
         <div class="page-header">
             <h2>Medicina Diagnóstica</h2>
-            <button class="back-btn" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> Voltar</button>
+            <button class="back-btn" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
         </div>
         <div class="grid-container">
             <div class="column">
@@ -122,7 +122,7 @@
     <section id="intervencionista" class="page">
         <div class="page-header">
             <h2>Medicina Intervencionista</h2>
-            <button class="back-btn" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> Voltar</button>
+            <button class="back-btn" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
         </div>
         <div class="grid-container">
             <div class="column">
@@ -170,9 +170,9 @@
             <div class="modal-header-icon">
                 <i class="fas fa-file-alt"></i>
             </div>
-            <h2 id="modal-title"></h2>
+            <h2 id="modal-title">Título do Protocolo</h2>
             <div class="modal-divider"></div>
-            <p id="modal-text"></p>
+            <p id="modal-text">O texto explicativo aparecerá aqui...</p>
         </div>
     </div>
 
