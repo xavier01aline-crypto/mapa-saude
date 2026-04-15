@@ -1,9 +1,9 @@
 :root {
-    --primary-blue: #004a99;
-    --sidebar-bg: #002e5d;
-    --secondary-teal: #00c2cb;
+    --primary-blue: #004a99; /* Azul Logo Vera Cruz */
+    --sidebar-bg: #002d5c; /* Azul Escuro Sidebar */
+    --secondary-teal: #00c2cb; /* Verde Água Logo Vera Cruz */
     --white: #ffffff;
-    --bg-gray: #f8fafc;
+    --bg-gray: #f4f7f9;
     --text-main: #334155;
     --shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
@@ -11,30 +11,32 @@
 * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
 body { font-family: 'Poppins', sans-serif; margin: 0; display: flex; background: var(--bg-gray); height: 100vh; overflow: hidden; color: var(--text-main); }
 
-/* Mãozinha */
+/* Cursor Mãozinha */
 button, .portal-card, .close, .nav-btn { cursor: pointer !important; }
 
 /* Sidebar */
 .sidebar { width: 260px; background: var(--sidebar-bg); color: white; display: flex; flex-direction: column; z-index: 100; }
 .sidebar-header { padding: 40px 25px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-.brand { font-size: 0.9rem; color: #cbd5e1; }
+.brand { font-size: 0.9rem; color: #ced4da; }
 .brand strong { font-size: 1.4rem; color: var(--secondary-teal); display: block; }
+
 .sidebar-nav { flex: 1; padding: 25px 0; }
 .nav-btn {
-    width: 100%; background: transparent; border: none; color: #94a3b8;
-    padding: 15px 25px; text-align: left; font-size: 0.95rem; display: flex; align-items: center; gap: 15px; transition: 0.3s;
+    width: 100%; background: transparent; border: none; color: #adb5bd;
+    padding: 15px 25px; text-align: left; font-size: 0.9rem; display: flex; align-items: center; gap: 15px; transition: 0.3s;
 }
 .nav-btn:hover { color: white; background: rgba(255,255,255,0.05); }
 .active-btn { color: white; background: var(--primary-blue); border-left: 5px solid var(--secondary-teal); font-weight: 600; }
-.sidebar-footer { padding: 20px; font-size: 0.7rem; opacity: 0.4; text-align: center; }
 
 /* Main Content */
-.main-content { flex: 1; overflow-y: auto; padding: 0; }
-.page { display: none; padding: 50px 60px; animation: slideUp 0.4s ease; }
+.main-content { flex: 1; overflow-y: auto; padding: 0; position: relative; }
+.page { display: none; padding: 50px 60px; min-height: 100vh; animation: fadeIn 0.4s ease; }
 .active { display: block; }
-@keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
 
-.page-header { display: flex; align-items: center; gap: 25px; border-bottom: 2px solid #e2e8f0; margin-bottom: 40px; padding-bottom: 15px; }
+.version-tag { position: absolute; bottom: 20px; right: 20px; font-size: 0.75rem; color: #94a3b8; font-weight: 500; }
+
+.page-header { display: flex; align-items: center; gap: 25px; border-bottom: 2px solid var(--secondary-teal); margin-bottom: 40px; padding-bottom: 15px; }
 .page-header h2 { color: var(--primary-blue); margin: 0; font-size: 1.8rem; }
 
 .back-btn { background: white; border: 1px solid #cbd5e1; padding: 8px 15px; border-radius: 8px; color: var(--text-main); font-weight: 500; transition: 0.2s; }
@@ -46,7 +48,7 @@ button, .portal-card, .close, .nav-btn { cursor: pointer !important; }
 /* Dashboard Cards */
 .main-card-container { display: flex; gap: 25px; flex-wrap: wrap; }
 .portal-card {
-    background: white; width: 320px; padding: 30px; border-radius: 20px;
+    background: white; width: 330px; padding: 30px; border-radius: 20px;
     display: flex; align-items: center; gap: 20px; box-shadow: var(--shadow); transition: 0.3s;
 }
 .portal-card:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0,0,0,0.12); }
@@ -54,13 +56,14 @@ button, .portal-card, .close, .nav-btn { cursor: pointer !important; }
 .card-icon.blue { background: rgba(0, 74, 153, 0.1); color: var(--primary-blue); }
 .card-icon.teal { background: rgba(0, 194, 203, 0.1); color: var(--secondary-teal); }
 .card-icon.gray { background: #f1f5f9; color: #64748b; }
-.portal-card h2 { margin: 0; font-size: 1.2rem; color: var(--primary-blue); }
+
+.portal-card h2 { margin: 0; font-size: 1.15rem; color: var(--primary-blue); }
 .portal-card p { margin: 5px 0 0; font-size: 0.85rem; color: #64748b; }
 
-/* Column Design */
+/* Grid Mapas */
 .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
 .column { background: white; padding: 25px; border-radius: 18px; border-top: 6px solid var(--secondary-teal); box-shadow: var(--shadow); }
-.column h3 { color: var(--primary-blue); font-size: 0.9rem; text-transform: uppercase; margin-bottom: 20px; text-align: center; letter-spacing: 1px; }
+.column h3 { color: var(--primary-blue); font-size: 0.9rem; text-transform: uppercase; margin-bottom: 20px; text-align: center; font-weight: 700; letter-spacing: 0.5px; }
 
 .column button {
     width: 100%; text-align: left; padding: 14px; margin-bottom: 10px; border: 1px solid #e2e8f0;
