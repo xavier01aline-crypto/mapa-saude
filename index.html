@@ -18,7 +18,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
         body { display: flex; background: var(--bg); height: 100vh; overflow: hidden; }
 
-        /* Sidebar Fixa */
+        /* Sidebar Blindada */
         .sidebar { width: 280px; background: var(--navy); color: white; display: flex; flex-direction: column; flex-shrink: 0; height: 100vh; z-index: 100; border-right: 1px solid rgba(255,255,255,0.1); }
         .sidebar-header { padding: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); text-align: center; }
         .logo-box { width: 50px; height: 50px; background: var(--teal); color: var(--navy); font-weight: 800; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 1.2rem; }
@@ -28,7 +28,7 @@
         .nav-btn:hover { color: white; background: rgba(255,255,255,0.05); }
         .nav-btn.active { background: var(--primary); color: white; border-left: 6px solid var(--teal); font-weight: 700; }
 
-        /* Main Content */
+        /* Content */
         .main-content { flex: 1; padding: 40px; overflow-y: auto; position: relative; }
         .page { display: none; animation: fadeIn 0.4s ease; }
         .page.active { display: block; }
@@ -39,7 +39,7 @@
         .search-area i { position: absolute; left: 15px; top: 13px; color: var(--primary); }
         .search-area input { width: 100%; padding: 12px 15px 12px 45px; border-radius: 30px; border: 1px solid #e2e8f0; box-shadow: var(--shadow); outline: none; font-size: 0.9rem; background: var(--white); }
 
-        /* Grid Layout (Design Anterior) */
+        /* Cards Layout */
         .grid-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
         .card-unit { background: white; border-radius: 20px; box-shadow: var(--shadow); border-top: 6px solid var(--primary); overflow: hidden; display: flex; flex-direction: column; }
         .card-header { background: #f8fafc; padding: 15px; font-weight: 700; text-align: center; font-size: 0.8rem; border-bottom: 1px solid #eee; text-transform: uppercase; color: var(--navy); }
@@ -49,7 +49,7 @@
         .teal-card { border-top-color: var(--teal); }
         .gray-card { border-top-color: #64748b; }
 
-        /* Agenda e Print */
+        /* Agenda UI */
         #printArea { padding: 20px; background: var(--bg); border-radius: 20px; }
         .kpi-row { display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; }
         .kpi-pill { padding: 12px 20px; border-radius: 50px; color: white; font-weight: 700; font-size: 0.75rem; box-shadow: var(--shadow); }
@@ -110,25 +110,26 @@
         </section>
 
         <section id="diagnostica" class="page">
-            <div class="search-area"><i class="fas fa-search"></i><input type="text" placeholder="Pesquisar exames..." onkeyup="filterCards(this, 'grid-diag')"></div>
+            <div class="search-area"><i class="fas fa-search"></i><input type="text" placeholder="Filtrar exames..." onkeyup="filterCards(this, 'grid-diag')"></div>
             <div class="grid-layout" id="grid-diag">
                 <div class="card-unit"><div class="card-header">ANESTESIA</div><div class="card-body"><button>Anestesia p/ US</button><button>Anestesia p/ Tomo</button><button>Anestesia p/ RM</button></div></div>
                 <div class="card-unit"><div class="card-header">DENSITOMETRIA</div><div class="card-body"><button>VFL</button><button>Corpo Inteiro</button><button>Um Segmento</button><button>Dois Seguimentos</button></div></div>
                 <div class="card-unit"><div class="card-header">MAMOGRAFIA</div><div class="card-body"><button>DIGITAL</button><button>TOMOSSÍNTESE</button><button>AMPLIAÇÃO</button></div></div>
-                <div class="card-unit"><div class="card-header">RAIO X</div><div class="card-body"><button>Abdome</button><button>Coluna</button><button>Crânio</button><button>Membros</button><button>Tórax</button><button>Contrastados</button></div></div>
-                <div class="card-unit"><div class="card-header">RESSONÂNCIA MAGNÉTICA</div><div class="card-body"><button>Cardio</button><button>Fetal</button><button>Neuro</button><button>Medicina Interna</button><button>Músculo</button></div></div>
-                <div class="card-unit"><div class="card-header">TOMOGRAFIA</div><div class="card-body"><button>Cardio</button><button>Coluna</button><button>Medicina Interna</button><button>Neuro</button></div></div>
-                <div class="card-unit"><div class="card-header">ULTRASSONOGRAFIA</div><div class="card-body"><button>Geral</button><button>Doppler</button><button>Obstétrico</button><button>Músculo</button></div></div>
+                <div class="card-unit"><div class="card-header">RAIO X</div><div class="card-body"><button>Abdome</button><button>Coluna</button><button>Crânio</button><button>Membro Inferior</button><button>Membro Superior</button><button>Tórax</button><button>Contrastados</button></div></div>
+                <div class="card-unit"><div class="card-header">RESSONÂNCIA MAGNÉTICA</div><div class="card-body"><button>Cardio</button><button>Fetal</button><button>Neuro</button><button>Medicina Interna</button><button>Músculo</button><button>Mama</button></div></div>
+                <div class="card-unit"><div class="card-header">TOMOGRAFIA</div><div class="card-body"><button>Cardio</button><button>Coluna</button><button>Medicina Interna</button><button>Neuro</button><button>Músculo</button></div></div>
+                <div class="card-unit"><div class="card-header">ULTRASSONOGRAFIA</div><div class="card-body"><button>Geral</button><button>Doppler</button><button>Obstétrico</button><button>Músculo</button><button>Mama</button></div></div>
             </div>
         </section>
 
         <section id="intervencionista" class="page">
-            <div class="search-area"><i class="fas fa-search"></i><input type="text" placeholder="Pesquisar procedimentos..." onkeyup="filterCards(this, 'grid-inter')"></div>
+            <div class="search-area"><i class="fas fa-search"></i><input type="text" placeholder="Filtrar procedimentos..." onkeyup="filterCards(this, 'grid-inter')"></div>
             <div class="grid-layout" id="grid-inter">
-                <div class="card-unit teal-card"><div class="card-header">PROCEDIMENTO PROFUNDO</div><div class="card-body"><button>Ablação</button><button>Biópsia</button><button>Nefrostomia</button><button>Paracentese</button><button>Toraconcetese</button></div></div>
+                <div class="card-unit teal-card"><div class="card-header">PROCEDIMENTO SUPERFICIAL</div><div class="card-body"><button>PAAF SUPERFICIAL</button></div></div>
+                <div class="card-unit teal-card"><div class="card-header">PROCEDIMENTO PROFUNDO</div><div class="card-body"><button>Ablação</button><button>Biópsia</button><button>Nefrostomia</button><button>Paracentese</button><button>Toraconcetese</button><button>Drenagem</button></div></div>
+                <div class="card-unit teal-card"><div class="card-header">MAMA</div><div class="card-body"><button>Core Biopsy</button><button>Mamotomia</button><button>Marcação</button><button>PAAF em Mama</button></div></div>
                 <div class="card-unit teal-card"><div class="card-header">PRÓSTATA</div><div class="card-body"><button>Transretal Simples</button><button>Transretal com Fusão</button><button>Transperineal Particular</button></div></div>
-                <div class="card-unit teal-card"><div class="card-header">MAMA</div><div class="card-body"><button>Core Biopsy</button><button>Mamotomia</button><button>Marcação</button></div></div>
-                <div class="card-unit teal-card"><div class="card-header">DIVERSOS</div><div class="card-body"><button>Anestesia</button><button>Artro RM</button><button>Consulta</button></div></div>
+                <div class="card-unit teal-card"><div class="card-header">DIVERSOS</div><div class="card-body"><button>Anestesia</button><button>Artro RM</button><button>Consulta</button><button>Dacrio</button></div></div>
             </div>
         </section>
 
@@ -148,7 +149,7 @@
                     <div class="ag-field"><label>Hora Início:</label><input type="time" id="timeStart" value="06:00" onchange="gerarGrade()"></div>
                     <div class="ag-field"><label>Hora Término:</label><input type="time" id="timeEnd" value="23:00" onchange="gerarGrade()"></div>
                     <div class="ag-field"><label>Slot (min):</label><input type="number" id="slotMin" value="20" oninput="gerarGrade()"></div>
-                    <div class="ag-field"><label>Nome da Sala:</label><input type="text" id="renameAg" placeholder="Ex: RM Sala 1" oninput="updateRoomName(this.value)"></div>
+                    <div class="ag-field"><label>Identificação da Sala:</label><input type="text" id="renameAg" placeholder="Ex: RM Sala 1" oninput="updateRoomName(this.value)"></div>
                     <button onclick="saveAg()" style="width:100%; padding:12px; margin-top:10px; background:var(--primary); color:white; border:none; border-radius:10px; cursor:pointer; font-weight:700;">Gravar Mês</button>
                     <button onclick="exportPNG()" style="width:100%; padding:12px; margin-top:10px; background:var(--navy); color:white; border:none; border-radius:10px; cursor:pointer;"><i class="fas fa-camera"></i> Exportar PNG</button>
                     <button onclick="applyBulk()" style="width:100%; padding:10px; margin-top:10px; background:var(--teal); border:none; border-radius:10px; cursor:pointer;">Preencher Eletivo</button>
@@ -157,7 +158,7 @@
                 <div id="printArea">
                     <div class="kpi-row">
                         <div class="kpi-pill pill-green">Eletivo + Específico: <span id="kpiEl">0</span></div>
-                        <div class="kpi-pill pill-blue">Urgência (PS/Int): <span id="kpiUr">0</span></div>
+                        <div class="kpi-pill pill-blue">Internado + PS: <span id="kpiUr">0</span></div>
                         <div class="kpi-pill pill-red">Manutenção: <span id="kpiMa">0</span></div>
                         <div class="kpi-pill pill-orange">Respiros: <span id="kpiRe">0</span></div>
                         <div class="kpi-pill pill-dark">Total Mensal: <span id="kpiTo">0</span></div>
@@ -173,7 +174,7 @@
             </div>
         </section>
 
-        <footer class="footer-version">Versão 23.0 - Hospital Vera Cruz</footer>
+        <footer class="footer-version">Versão 28.0 - Hospital Vera Cruz</footer>
     </main>
 
     <script>
@@ -231,7 +232,7 @@
             for (let min = startM; min <= endM; min += slot) {
                 let h = Math.floor(min / 60).toString().padStart(2, '0');
                 let m = (min % 60).toString().padStart(2, '0');
-                html += `<tr><td style="font-weight:700; background:#f8fafc;">${h}:${m}</td>`;
+                html += `<tr><td style="font-weight:700; background:#f8fafc; border-right: 1px solid #ddd;">${h}:${m}</td>`;
                 for (let d = 0; d < 7; d++) {
                     const id = `s-${min}-${d}`;
                     html += `<td>
@@ -286,7 +287,7 @@
         }
 
         function saveAg() {
-            const key = `v23_${currentAgId}_${document.getElementById('selMes').value}`;
+            const key = `v28_${currentAgId}_${document.getElementById('selMes').value}`;
             const data = { 
                 n: document.getElementById('renameAg').value, s: document.getElementById('slotMin').value,
                 hS: document.getElementById('timeStart').value, hE: document.getElementById('timeEnd').value, m: [] 
@@ -301,7 +302,7 @@
         function loadAg() {
             const mesIdx = document.getElementById('selMes').value;
             document.getElementById('displayPeriod').innerText = `${months[mesIdx]} / 2026`;
-            const key = `v23_${currentAgId}_${mesIdx}`;
+            const key = `v28_${currentAgId}_${mesIdx}`;
             const s = localStorage.getItem(key);
             if(s) {
                 const d = JSON.parse(s);
