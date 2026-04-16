@@ -1,5 +1,5 @@
-let curAg = 'ag1';
-const monthsNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+let currentAgId = 'ag1';
+const monthsNamesExt = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
 function showPage(p) {
     document.querySelectorAll('.page').forEach(pg => pg.classList.remove('active'));
@@ -28,13 +28,13 @@ function filtrar(inp, gridId) {
     });
 }
 
-// AGENDA MOTOR
-function initParams() {
+// PARAMETRIZAÇÃO DE AGENDA
+function initAgendaParams() {
     const m = document.getElementById('selMes');
     const a = document.getElementById('selAno');
     if (!m) return;
     const d = new Date();
-    monthsNames.forEach((name, i) => m.add(new Option(name, i)));
+    monthsNamesExt.forEach((name, i) => m.add(new Option(name, i)));
     for (let i = d.getFullYear(); i <= d.getFullYear() + 2; i++) a.add(new Option(i, i));
     m.value = d.getMonth();
 
@@ -49,7 +49,7 @@ function initParams() {
 }
 
 function selectAg(id, btn) {
-    curAg = id;
+    currentAgId = id;
     document.querySelectorAll('.tab-link').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     carregarAg();
@@ -76,7 +76,7 @@ function gerarGradeAg() {
                     <option value="eletivo">Eletivo</option>
                     <option value="ps">P.S.</option>
                     <option value="internado">Internado</option>
-                    <option value="ma">Manut.</option>
+                    <option value="manutencao">Manut.</option>
                     <option value="respiro">Respiro</option>
                     <option value="bloqueio">Bloqueio</option>
                     <option value="especifico">Específico</option>
@@ -103,11 +103,10 @@ function calcAg() {
         if(s.value === 'eletivo') el++;
         if(s.value === 'especifico') esp++;
         if(s.value === 'ps' || s.value === 'internado') ur++;
-        if(s.value === 'ma') ma++;
+        if(s.value === 'manutencao') ma++;
         if(s.value === 'respiro') re++;
-        if(s.value === 'bloqueio') bl++;
     });
-    const f = 4.3;
+    const f = 4.3; // Projeção mensal
     document.getElementById('valElEsp').innerText = Math.round((el + esp) * f);
     document.getElementById('valUr').innerText = Math.round(ur * f);
     document.getElementById('valMa').innerText = Math.round(ma * f);
@@ -118,19 +117,19 @@ function calcAg() {
 function salvarAg() {
     const mes = document.getElementById('selMes').value;
     const ano = document.getElementById('selAno').value;
-    const key = `v12_${curAg}_${mes}_${ano}`;
+    const key = `v14_${currentAgId}_${mes}_${ano}`;
     const d = { nome: document.getElementById('renameAg').value, slot: document.getElementById('slotMin').value, mapa: [] };
     document.querySelectorAll('.s-inp').forEach(s => {
         d.mapa.push({ id: s.id, v: s.value, t: document.getElementById(s.id + "-tx").value });
     });
     localStorage.setItem(key, JSON.stringify(d));
-    alert("Dados Salvos!");
+    alert("Parametrização Salva!");
 }
 
 function carregarAg() {
     const mes = document.getElementById('selMes').value;
     const ano = document.getElementById('selAno').value;
-    const key = `v12_${curAg}_${mes}_${ano}`;
+    const key = `v14_${currentAgId}_${mes}_${ano}`;
     const s = localStorage.getItem(key);
     gerarGradeAg();
     if(s) {
@@ -148,7 +147,7 @@ function carregarAg() {
         });
     }
     document.getElementById('capTit').innerText = document.getElementById('renameAg').value || "Agenda";
-    document.getElementById('capPeriodo').innerText = monthsNames[mes] + " / " + ano;
+    document.getElementById('capPeriodo').innerText = monthsNamesExt[mes] + " / " + ano;
     calcAg();
 }
 
@@ -166,4 +165,4 @@ function openModal(t, txt) {
 
 function closeModal() { document.getElementById('modal').style.display = 'none'; }
 
-window.onload = initParams;
+window.onload = initAgendaParams;
