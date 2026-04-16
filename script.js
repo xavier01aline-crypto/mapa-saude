@@ -1,18 +1,18 @@
-let currentAgId = 'ag1';
-const monthsNamesExt = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+let currentAg = 'ag1';
+const monthsNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
 function showPage(p) {
     document.querySelectorAll('.page').forEach(pg => pg.classList.remove('active'));
     document.getElementById(p).classList.add('active');
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-btn'));
+    document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
     const btn = document.getElementById('btn-' + p);
-    if (btn) btn.classList.add('active-btn');
+    if (btn) btn.classList.add('active');
     if (p === 'agendas') carregarAg();
 }
 
-function filtrar(inp, gridId) {
-    const t = inp.value.toLowerCase();
-    const cards = document.querySelectorAll(`#${gridId} .card-p`);
+function filtrarCategorias(input, gridId) {
+    const t = input.value.toLowerCase();
+    const cards = document.querySelectorAll(`#${gridId} .category-card`);
     cards.forEach(card => {
         const btns = card.querySelectorAll('button');
         let cardMatch = false;
@@ -28,13 +28,13 @@ function filtrar(inp, gridId) {
     });
 }
 
-// PARAMETRIZAÇÃO DE AGENDA
-function initAgendaParams() {
+// ENGINE DE AGENDA V15
+function initSystem() {
     const m = document.getElementById('selMes');
     const a = document.getElementById('selAno');
     if (!m) return;
     const d = new Date();
-    monthsNamesExt.forEach((name, i) => m.add(new Option(name, i)));
+    monthsNames.forEach((name, i) => m.add(new Option(name, i)));
     for (let i = d.getFullYear(); i <= d.getFullYear() + 2; i++) a.add(new Option(i, i));
     m.value = d.getMonth();
 
@@ -49,7 +49,7 @@ function initAgendaParams() {
 }
 
 function selectAg(id, btn) {
-    currentAgId = id;
+    currentAg = id;
     document.querySelectorAll('.tab-link').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     carregarAg();
@@ -72,7 +72,7 @@ function gerarGradeAg() {
         for (let d = 0; d < 7; d++) {
             const id = `s-${min}-${d}`;
             html += `<td>
-                <select class="s-inp" id="${id}" onchange="toggleE(this)">
+                <select class="s-inp" id="${id}" onchange="toggleEs(this)">
                     <option value="eletivo">Eletivo</option>
                     <option value="ps">P.S.</option>
                     <option value="internado">Internado</option>
@@ -81,7 +81,7 @@ function gerarGradeAg() {
                     <option value="bloqueio">Bloqueio</option>
                     <option value="especifico">Específico</option>
                 </select>
-                <input type="text" id="${id}-tx" class="input-especifico-tx" placeholder="...">
+                <input type="text" id="${id}-tx" class="input-especifico-box" placeholder="Exame...">
             </td>`;
         }
         html += `</tr>`;
@@ -90,7 +90,7 @@ function gerarGradeAg() {
     calcAg();
 }
 
-function toggleE(sel) {
+function toggleEs(sel) {
     const tx = document.getElementById(sel.id + "-tx");
     tx.style.display = sel.value === 'especifico' ? "block" : "none";
     calcAg();
@@ -98,15 +98,17 @@ function toggleE(sel) {
 
 function calcAg() {
     const sels = document.querySelectorAll('.s-inp');
-    let el = 0, esp = 0, ur = 0, ma = 0, re = 0, bl = 0;
+    let el = 0, esp = 0, ur = 0, ma = 0, re = 0;
     sels.forEach(s => {
         if(s.value === 'eletivo') el++;
         if(s.value === 'especifico') esp++;
         if(s.value === 'ps' || s.value === 'internado') ur++;
         if(s.value === 'manutencao') ma++;
         if(s.value === 'respiro') re++;
+        
+        s.style.backgroundColor = s.value === 'manutencao' ? '#fee2e2' : (s.value === 'ps' || s.value === 'internado' ? '#eff6ff' : '#dcfce7');
     });
-    const f = 4.3; // Projeção mensal
+    const f = 4.3; // Média mensal
     document.getElementById('valElEsp').innerText = Math.round((el + esp) * f);
     document.getElementById('valUr').innerText = Math.round(ur * f);
     document.getElementById('valMa').innerText = Math.round(ma * f);
@@ -117,21 +119,27 @@ function calcAg() {
 function salvarAg() {
     const mes = document.getElementById('selMes').value;
     const ano = document.getElementById('selAno').value;
-    const key = `v14_${currentAgId}_${mes}_${ano}`;
-    const d = { nome: document.getElementById('renameAg').value, slot: document.getElementById('slotMin').value, mapa: [] };
+    const key = `v15_${currentAg}_${mes}_${ano}`;
+    const d = { 
+        nome: document.getElementById('renameAg').value, 
+        slot: document.getElementById('slotMin').value, 
+        mapa: [] 
+    };
     document.querySelectorAll('.s-inp').forEach(s => {
         d.mapa.push({ id: s.id, v: s.value, t: document.getElementById(s.id + "-tx").value });
     });
     localStorage.setItem(key, JSON.stringify(d));
-    alert("Parametrização Salva!");
+    alert("Parâmetros Gravados com Sucesso!");
 }
 
 function carregarAg() {
     const mes = document.getElementById('selMes').value;
     const ano = document.getElementById('selAno').value;
-    const key = `v14_${currentAgId}_${mes}_${ano}`;
+    const key = `v15_${currentAg}_${mes}_${ano}`;
     const s = localStorage.getItem(key);
+    
     gerarGradeAg();
+
     if(s) {
         const d = JSON.parse(s);
         document.getElementById('renameAg').value = d.nome || "";
@@ -145,15 +153,17 @@ function carregarAg() {
                 if(tx) { tx.value = item.t || ""; if(item.v === 'especifico') tx.style.display = "block"; }
             }
         });
+    } else {
+        document.getElementById('renameAg').value = "";
     }
     document.getElementById('capTit').innerText = document.getElementById('renameAg').value || "Agenda";
-    document.getElementById('capPeriodo').innerText = monthsNamesExt[mes] + " / " + ano;
+    document.getElementById('capPeriodo').innerText = monthsNames[mes] + " / " + ano;
     calcAg();
 }
 
 function aplicarMassa() {
     const st = document.getElementById('bulkStatus').value;
-    document.querySelectorAll('.s-inp').forEach(s => { s.value = st; toggleE(s); });
+    document.querySelectorAll('.s-inp').forEach(s => { s.value = st; toggleEs(s); });
     calcAg();
 }
 
@@ -165,4 +175,4 @@ function openModal(t, txt) {
 
 function closeModal() { document.getElementById('modal').style.display = 'none'; }
 
-window.onload = initAgendaParams;
+window.onload = initSystem;
