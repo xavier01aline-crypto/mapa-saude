@@ -4,14 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fluxos Medicina Diagnóstica - Vera Cruz</title>
-    <meta property="og:title" content="Portal de Consultas Medicina Diagnóstica - Vera Cruz">
-    <meta property="og:description" content="Central de suporte de fluxos operacionais do Setor Medicina Diagnóstica">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -34,17 +30,12 @@
         
         <section id="home" class="page active">
             <div class="welcome-container">
-                <h1>Bem-vindo ao Portal de Consulta de Fluxos Operacioniais</h1>
-                <p>Central de suporte de fluxos operacionais do Setor Medicina Diagnóstica</p>
-                <div class="main-card-container">
-                    <div class="portal-card" onclick="showPage('diagnostica')">
-                        <div class="card-icon blue"><i class="fas fa-notes-medical"></i></div>
-                        <div class="card-content"><h2>Medicina Diagnóstica</h2><p>Consulte os códigos da imagem</p></div>
-                    </div>
-                    <div class="portal-card" onclick="showPage('intervencionista')">
-                        <div class="card-icon teal"><i class="fas fa-syringe"></i></div>
-                        <div class="card-content"><h2>Medicina Intervencionista</h2><p>Consulte os códigos de procedimentos</p></div>
-                    </div>
+                <h1>Gestão de Fluxos Medicina Diagnóstica</h1>
+                <p>Selecione uma categoria no menu lateral para visualizar os protocolos operacionais.</p>
+                <div class="home-summary">
+                    <div class="summary-card"><h3>Diagnóstica</h3><p>Exames de Imagem e Laudos</p></div>
+                    <div class="summary-card"><h3>Intervencionista</h3><p>Procedimentos e Biópsias</p></div>
+                    <div class="summary-card"><h3>Agendas</h3><p>Parametrização e Capacidade</p></div>
                 </div>
             </div>
             <div class="version-tag">v 5.4 - 2026</div>
@@ -53,59 +44,47 @@
         <section id="diagnostica" class="page">
             <div class="page-header">
                 <button class="back-btn" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> Voltar</button>
-                <h2>Medicina Diagnóstica</h2>
+                <h2>Protocolos Medicina Diagnóstica</h2>
             </div>
             <div class="grid-container">
-                <div class="column">
-                    <h3>Anestesia</h3>
-                    <button onclick="openModal('Anestesia US', 'Protocolo para Ultrassom.')">Anestesia para US</button>
-                    <button onclick="openModal('Anestesia Tomo', 'Protocolo para Tomografia.')">Anestesia para Tomo</button>
-                    <button onclick="openModal('Anestesia RM', 'Protocolo para Ressonância.')">Anestesia para RM</button>
+                <div class="column-card">
+                    <div class="column-header"><i class="fas fa-syringe"></i> Anestesia</div>
+                    <div class="button-list">
+                        <button onclick="openModal('Anestesia para US', '<strong>Orientações:</strong><br>• Jejum de 8h.<br>• Necessário acompanhante.<br>• Avaliação pré-anestésica em prontuário.')">Anestesia para US</button>
+                        <button onclick="openModal('Anestesia para Tomo', '<strong>Orientações:</strong><br>• Jejum conforme contraste.<br>• Monitoramento de oximetria obrigatório.')">Anestesia para Tomo</button>
+                        <button onclick="openModal('Anestesia para RM', '<strong>Orientações:</strong><br>• Protocolo específico para campo magnético.<br>• Equipamentos compatíveis.')">Anestesia para RM</button>
+                    </div>
                 </div>
-                <div class="column">
-                    <h3>Densitometria</h3>
-                    <button onclick="openModal('Avaliação VFL', 'Análise de fratura vertebral.')">Avaliação VFL</button>
-                    <button onclick="openModal('Corpo Inteiro', 'Densitometria corporal.')">Corpo Inteiro</button>
-                    <button onclick="openModal('Um Segmento', 'Análise de 01 segmento.')">Um Segmento</button>
-                    <button onclick="openModal('Dois Seguimentos', 'Análise de 02 segmentos.')">Dois Seguimentos</button>
+                <div class="column-card">
+                    <div class="column-header"><i class="fas fa-bone"></i> Densitometria</div>
+                    <div class="button-list">
+                        <button onclick="openModal('Avaliação VFL', '<strong>Código Tasy:</strong> 40808123<br>Análise de fraturas vertebrais.')">Avaliação VFL</button>
+                        <button onclick="openModal('Corpo Inteiro', 'Densitometria para composição corporal.')">Corpo Inteiro</button>
+                        <button onclick="openModal('Um Segmento', 'Coluna ou Fêmur.')">Um Segmento</button>
+                    </div>
                 </div>
-                <div class="column">
-                    <h3>Mamografia</h3>
-                    <button onclick="openModal('Digital', 'Mamografia Digital.')">MAMOGRAFIA DIGITAL</button>
-                    <button onclick="openModal('Tomossíntese', 'Tomossíntese Mamária.')">TOMOSSÍNTESE MAMÁRIA</button>
-                    <button onclick="openModal('Ampliação', 'MAMA AMPLIAÇÃO.')">MAMA AMPLIAÇÃO</button>
+                <div class="column-card">
+                    <div class="column-header"><i class="fas fa-ribbon"></i> Mamografia</div>
+                    <div class="button-list">
+                        <button onclick="openModal('Mamografia Digital', 'Protocolo padrão bilateral.')">MAMOGRAFIA DIGITAL</button>
+                        <button onclick="openModal('Tomossíntese', 'Mamografia 3D de alta resolução.')">TOMOSSÍNTESE MAMÁRIA</button>
+                    </div>
                 </div>
-                <div class="column">
-                    <h3>Raio X</h3>
-                    <button onclick="openModal('Abdome', 'Protocolo RX Abdome.')">Abdome</button>
-                    <button onclick="openModal('Coluna', 'Protocolo RX Coluna.')">Coluna</button>
-                    <button onclick="openModal('Crânio', 'Protocolo RX Crânio.')">Crânio</button>
-                    <button onclick="openModal('Membro Inferior', 'Protocolo RX Membro Inferior.')">Membro Inferior</button>
-                    <button onclick="openModal('Membro Superior', 'Protocolo RX Membro Superior.')">Membro Superior</button>
-                    <button onclick="openModal('Contrastados', 'Exames Contrastados.')">Contrastados</button>
-                    <button onclick="openModal('Torax', 'Protocolo RX Tórax.')">Torax</button>
+                <div class="column-card">
+                    <div class="column-header"><i class="fas fa-x-ray"></i> Raio X</div>
+                    <div class="button-list">
+                        <button onclick="openModal('RX Tórax', 'Incidências PA e Perfil.')">Tórax</button>
+                        <button onclick="openModal('RX Abdome', 'Abdome Simples / Agudo.')">Abdome</button>
+                        <button onclick="openModal('RX Coluna', 'Cervical, Torácica ou Lombar.')">Coluna</button>
+                    </div>
                 </div>
-                <div class="column">
-                    <h3>Ress. Magnética</h3>
-                    <button onclick="openModal('RM Cardio', 'RM Cardíaca.')">Cardio</button>
-                    <button onclick="openModal('RM Coluna', 'RM Coluna.')">Coluna</button>
-                    <button onclick="openModal('RM Fetal', 'RM Fetal.')">Fetal</button>
-                    <button onclick="openModal('RM Mama', 'RM Mama.')">Mama</button>
-                    <button onclick="openModal('RM Neuro', 'RM Neuro.')">Neuro</button>
-                </div>
-                <div class="column">
-                    <h3>Tomografia</h3>
-                    <button onclick="openModal('TC Cardio', 'TC Cardíaca.')">Cardio</button>
-                    <button onclick="openModal('TC Coluna', 'TC Coluna.')">Coluna</button>
-                    <button onclick="openModal('TC Interna', 'Medicina Interna.')">Medicina Interna</button>
-                    <button onclick="openModal('TC Neuro', 'TC Neuro.')">Neuro</button>
-                </div>
-                <div class="column">
-                    <h3>Ultrassonografia</h3>
-                    <button onclick="openModal('US Doppler', 'US Doppler.')">US Doppler</button>
-                    <button onclick="openModal('US Geral', 'US Geral.')">US Geral</button>
-                    <button onclick="openModal('US Mama', 'US Mama.')">US Mama</button>
-                    <button onclick="openModal('US Obstetrico', 'US Obstétrico.')">Us Obstetrico</button>
+                <div class="column-card">
+                    <div class="column-header"><i class="fas fa-magnet"></i> Ressonância</div>
+                    <div class="button-list">
+                        <button onclick="openModal('RM Neuro', 'Encéfalo, Sela Túrcica, Órbitas.')">Neuro</button>
+                        <button onclick="openModal('RM Cardio', 'Protocolo de Stress e Viabilidade.')">Cardio</button>
+                        <button onclick="openModal('RM Musculo', 'Articulações e Partes Moles.')">Musculo</button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -116,35 +95,21 @@
                 <h2>Medicina Intervencionista</h2>
             </div>
             <div class="grid-container">
-                <div class="column">
-                    <h3>Superficial</h3>
-                    <button style="height: 100px;" onclick="openModal('PAAF', 'Punção Aspirativa por Agulha Fina.')">PAAF</button>
+                <div class="column-card accent-teal">
+                    <div class="column-header">Procedimentos Profundos</div>
+                    <div class="button-list">
+                        <button onclick="openModal('Ablação por Radiofrequência', 'Tratamento de tumores via imagem.')">Ablação em Geral</button>
+                        <button onclick="openModal('Biópsias', 'Hepática, Renal e Óssea.')">Biópsias Profundas</button>
+                        <button onclick="openModal('Drenagens', 'Coleções e Abscessos.')">Drenagem Percutânea</button>
+                    </div>
                 </div>
-                <div class="column">
-                    <h3>Profundo</h3>
-                    <button onclick="openModal('Ablação', 'Ablação por Radiofrequência.')">Ablação em Geral</button>
-                    <button onclick="openModal('Biópsia', 'Hepática, Renal, Óssea.')">Biópsia em Geral</button>
-                    <button onclick="openModal('Drenagem', 'Coleções e abscessos.')">Drenagem em Geral</button>
-                    <button onclick="openModal('Nefrostomia', 'Punção Renal.')">Nefrostomia</button>
-                    <button onclick="openModal('Paracentese', 'Drenagem Ascítica.')">Paracentese</button>
-                    <button onclick="openModal('Toraconcetese', 'Drenagem Pleural.')">Toraconcetese</button>
-                </div>
-                <div class="column">
-                    <h3>Mama</h3>
-                    <button onclick="openModal('Core Biopsy', 'Core Biopsy.')">Core Biopsy</button>
-                    <button onclick="openModal('Mamotomia', 'Mamotomia.')">Mamotomia</button>
-                    <button onclick="openModal('Marcação', 'Agulhamento/Fio.')">Marcação</button>
-                </div>
-                <div class="column">
-                    <h3>Próstata</h3>
-                    <button onclick="openModal('Simples', 'Biópsia Transretal Simples.')">Transretal Simples</button>
-                    <button onclick="openModal('Fusão', 'Biópsia com Fusão RM+US.')">Transretal com Fusão</button>
-                </div>
-                <div class="column">
-                    <h3>Diversos</h3>
-                    <button onclick="openModal('Anestesia', 'Suporte Anestésico.')">Anestesia</button>
-                    <button onclick="openModal('Artro RM', 'Injeção articular.')">Artro RM</button>
-                    <button onclick="openModal('Consulta', 'Consulta Médica Intervencionista.')">Consulta</button>
+                <div class="column-card accent-teal">
+                    <div class="column-header">Intervenção de Mama</div>
+                    <div class="button-list">
+                        <button onclick="openModal('Core Biopsy', 'Biópsia por fragmento (agulha grossa).')">Core Biopsy</button>
+                        <button onclick="openModal('Mamotomia', 'Biópsia à vácuo.')">Mamotomia</button>
+                        <button onclick="openModal('Marcação pré-cirúrgica', 'Colocação de fio ou clipe.')">Agulhamento</button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -152,22 +117,22 @@
         <section id="fluxos" class="page">
             <div class="page-header">
                 <button class="back-btn" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> Voltar</button>
-                <h2>Fluxogramas por Departamento</h2>
+                <h2>Departamentos e Fluxos</h2>
             </div>
             <div class="grid-container">
-                <div class="column">
-                    <h3>Atendimento</h3>
-                    <button onclick="openModal('Call Center', 'Fluxo de Agendamento.')">Call Center</button>
-                    <button onclick="openModal('Recepção', 'Fluxo de Identificação e Recepção.')">Recepção</button>
+                <div class="column-card accent-gray">
+                    <div class="column-header">Administrativo</div>
+                    <div class="button-list">
+                        <button onclick="openModal('Fluxo de Agendamento', 'Passo a passo do Call Center.')">Call Center</button>
+                        <button onclick="openModal('Fluxo de Recepção', 'Abertura de fichas e convênios.')">Recepção</button>
+                    </div>
                 </div>
-                <div class="column">
-                    <h3>Assistencial</h3>
-                    <button onclick="openModal('Enfermagem', 'Fluxo de Triagem.')">Enfermagem</button>
-                    <button onclick="openModal('Técnico', 'Fluxo de Realização de Exames.')">Técnico de Radiologia</button>
-                </div>
-                <div class="column">
-                    <h3>Médico</h3>
-                    <button onclick="openModal('Médico', 'Fluxo de Laudo e Análise.')">Médico Radiologista</button>
+                <div class="column-card accent-gray">
+                    <div class="column-header">Operacional</div>
+                    <div class="button-list">
+                        <button onclick="openModal('Fluxo Assistencial', 'Preparação e punção.')">Enfermagem</button>
+                        <button onclick="openModal('Fluxo Técnico', 'Realização e Pós-Processamento.')">Técnico de Radiologia</button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -177,7 +142,6 @@
                 <button class="back-btn" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> Voltar</button>
                 <h2>Parametrização de Agenda</h2>
             </div>
-            
             <div class="agenda-container-full">
                 <div class="config-panel">
                     <div class="agenda-submenu">
@@ -186,77 +150,25 @@
                         <button class="agenda-selector-btn" onclick="selecionarAgenda('agenda3', this)">Agenda 03</button>
                         <button class="agenda-selector-btn" onclick="selecionarAgenda('agenda4', this)">Agenda 04</button>
                         <button class="agenda-selector-btn" onclick="selecionarAgenda('agenda5', this)">Agenda 05</button>
-                        <button class="agenda-selector-btn" onclick="selecionarAgenda('agenda6', this)">Agenda 06</button>
-                        <button class="agenda-selector-btn" onclick="selecionarAgenda('agenda7', this)">Agenda 07</button>
-                        <button class="agenda-selector-btn" onclick="selecionarAgenda('agenda8', this)">Agenda 08</button>
-                        <button class="agenda-selector-btn" onclick="selecionarAgenda('agenda9', this)">Agenda 09</button>
                     </div>
-
                     <div class="form-row-main">
-                        <div class="input-group">
-                            <label>Identificação:</label>
-                            <input type="text" id="renameAgenda" placeholder="Ex: RM Sala 01">
-                        </div>
-                        <div class="input-group">
-                            <label>Mês:</label>
-                            <select id="selectMes" onchange="carregarAgendaSalva()"></select>
-                        </div>
-                        <div class="input-group">
-                            <label>Ano:</label>
-                            <select id="selectAno" onchange="carregarAgendaSalva()"></select>
-                        </div>
-                        <div class="input-group">
-                            <label>Slot (min):</label>
-                            <input type="number" id="slotTempo" value="20" oninput="gerarGrade()">
-                        </div>
+                        <div class="input-group"><label>Identificação:</label><input type="text" id="renameAgenda"></div>
+                        <div class="input-group"><label>Mês:</label><select id="selectMes" onchange="carregarAgendaSalva()"></select></div>
+                        <div class="input-group"><label>Ano:</label><select id="selectAno" onchange="carregarAgendaSalva()"></select></div>
                     </div>
-
-                    <div class="bulk-action-panel">
-                        <h4><i class="fas fa-magic"></i> APLICAÇÃO EM MASSA POR PERÍODO</h4>
-                        <div class="form-row-bulk">
-                            <select id="bulkDay">
-                                <option value="all">Todos Dias</option>
-                                <option value="0">Dom</option><option value="1">Seg</option>
-                                <option value="2">Ter</option><option value="3">Qua</option>
-                                <option value="4">Qui</option><option value="5">Sex</option>
-                                <option value="6">Sab</option>
-                            </select>
-                            <input type="time" id="bulkStart" value="08:00">
-                            <input type="time" id="bulkEnd" value="12:00">
-                            <select id="bulkStatus">
-                                <option value="eletivo">Eletivo</option>
-                                <option value="internado">Internado</option>
-                                <option value="ps">Pronto Socorro</option>
-                                <option value="especifico">Específico</option>
-                                <option value="bloqueio">Bloqueado</option>
-                                <option value="respiro">Respiro</option>
-                                <option value="manutencao">Manutenção</option>
-                            </select>
-                            <button onclick="aplicarEmMassa()" class="mini-btn">Aplicar</button>
-                        </div>
-                    </div>
-
                     <div id="capture-area">
-                        <div class="header-capture">
-                            <h3 id="display-titulo">Agenda</h3>
-                            <span id="display-detalhe" class="badge-mensal"></span>
-                        </div>
+                        <div class="header-capture"><h3 id="display-titulo"></h3><span id="display-detalhe" class="badge-mensal"></span></div>
                         <div id="gradeSemanal" class="grade-scroll"></div>
                     </div>
-                    
                     <div class="btn-group-agenda">
-                        <button class="save-btn" onclick="salvarAgenda()"><i class="fas fa-save"></i> Gravar Mês</button>
-                        <button class="export-btn" onclick="exportarImagem()"><i class="fas fa-file-image"></i> Exportar PNG</button>
+                        <button class="save-btn" onclick="salvarAgenda()">Gravar Mês</button>
+                        <button class="export-btn" onclick="exportarImagem()">Exportar PNG</button>
                     </div>
                 </div>
-
                 <div class="result-panel">
-                    <h3>Capacidade Mensal</h3>
                     <div class="kpi-grid">
-                        <div class="kpi-card green"><span class="kpi-label">ELETIVO + ESPEC.</span><span id="kpiExames" class="kpi-value">0</span></div>
-                        <div class="kpi-card blue"><span class="kpi-label">INTERNADO / PS</span><span id="kpiUrgencia" class="kpi-value">0</span></div>
-                        <div class="kpi-card highlight"><span class="kpi-label">PERDA MANUTENÇÃO</span><span id="kpiManutencao" class="kpi-value">0</span></div>
-                        <div class="kpi-card grey"><span class="kpi-label">RESPIROS</span><span id="kpiRespiros" class="kpi-value">0</span></div>
+                        <div class="kpi-card green"><span class="kpi-label">Exames</span><span id="kpiExames" class="kpi-value">0</span></div>
+                        <div class="kpi-card highlight"><span class="kpi-label">Perda Manutenção</span><span id="kpiManutencao" class="kpi-value">0</span></div>
                     </div>
                 </div>
             </div>
@@ -266,10 +178,12 @@
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <div class="modal-header-icon"><i class="fas fa-info-circle"></i></div>
-            <h2 id="modal-title"></h2>
-            <div class="modal-divider"></div>
-            <p id="modal-text"></p>
+            <div class="modal-body">
+                <h2 id="modal-title"></h2>
+                <div class="modal-line"></div>
+                <p id="modal-text"></p>
+            </div>
+            <button class="modal-btn-close" onclick="closeModal()">Entendido</button>
         </div>
     </div>
 
