@@ -3,52 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal de Consulta de Fluxos - Hospital Vera Cruz</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <title>Portal de Consulta - Hospital Vera Cruz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <aside class="sidebar">
-        <div class="sidebar-brand">
-            <div class="logo-box">VC</div>
+        <div class="sidebar-header">
+            <div class="logo-vc">VC</div>
             <span>MEDICINA DIAGNÓSTICA<br><small>HOSPITAL VERA CRUZ</small></span>
         </div>
         <nav class="sidebar-nav">
-            <button onclick="showPage('dashboard')" class="nav-item" id="btn-dashboard"><i class="fas fa-chart-line"></i> Dashboard</button>
-            <button onclick="showPage('home')" class="nav-item active" id="btn-home"><i class="fas fa-home"></i> Início</button>
-            <button onclick="showPage('diagnostica')" class="nav-item" id="btn-diagnostica"><i class="fas fa-microscope"></i> Diagnóstica</button>
-            <button onclick="showPage('intervencionista')" class="nav-btn-link" id="btn-intervencionista" onclick="showPage('intervencionista')"><i class="fas fa-user-md"></i> Intervencionista</button>
-            <button onclick="showPage('fluxos')" class="nav-item" id="btn-fluxos"><i class="fas fa-sitemap"></i> Departamentos</button>
-            <button onclick="showPage('agendas')" class="nav-item" id="btn-agendas"><i class="fas fa-calendar-check"></i> Parametrização</button>
+            <button onclick="showPage('dashboard')" class="nav-btn" id="btn-dashboard"><i class="fas fa-chart-pie"></i> Dashboard</button>
+            <button onclick="showPage('home')" class="nav-btn active" id="btn-home"><i class="fas fa-home"></i> Início</button>
+            <button onclick="showPage('diagnostica')" class="nav-btn" id="btn-diagnostica"><i class="fas fa-microscope"></i> Diagnóstica</button>
+            <button onclick="showPage('intervencionista')" class="nav-btn" id="btn-intervencionista"><i class="fas fa-user-md"></i> Intervencionista</button>
+            <button onclick="showPage('fluxos')" class="nav-btn" id="btn-fluxos"><i class="fas fa-sitemap"></i> Departamentos</button>
+            <button onclick="showPage('agendas')" class="nav-btn" id="btn-agendas"><i class="fas fa-calendar-alt"></i> Parametrização</button>
         </nav>
     </aside>
 
     <main class="main-content">
-        
         <section id="dashboard" class="page">
-            <div class="header-section">
-                <h1>Dashboard Operacional</h1>
-                <p>Análise de produtividade e métricas de atendimento.</p>
-            </div>
-            <div class="dashboard-visual">
-                <div class="card-chart">Visualização de Fluxo e Volume Mensal</div>
-            </div>
+            <div class="page-title"><h1>Dashboard Operacional</h1></div>
+            <div class="dash-container"><div class="chart-mock">Gráfico de Produtividade Mensal</div></div>
         </section>
 
         <section id="home" class="page active">
-            <div class="hero-box">
+            <div class="hero-section">
                 <h1>Portal de Consulta de Fluxos</h1>
                 <p>Gestão de Protocolos e Capacidade de Agendas</p>
-                <div class="hero-navigation">
-                    <div class="nav-card" onclick="showPage('diagnostica')">
+                <div class="hero-grid">
+                    <div class="hero-card" onclick="showPage('diagnostica')">
                         <i class="fas fa-file-medical"></i>
                         <h3>Medicina Diagnóstica</h3>
                         <p>Protocolos de Imagem</p>
                     </div>
-                    <div class="nav-card" onclick="showPage('intervencionista')">
+                    <div class="hero-card" onclick="showPage('intervencionista')">
                         <i class="fas fa-syringe"></i>
                         <h3>Medicina Intervencionista</h3>
                         <p>Procedimentos e Biópsias</p>
@@ -58,178 +51,74 @@
         </section>
 
         <section id="diagnostica" class="page">
-            <div class="page-header-row">
+            <div class="section-header">
                 <h2>Medicina Diagnóstica</h2>
-                <div class="search-premium">
+                <div class="search-bar-premium">
                     <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Pesquisar categoria ou exame..." onkeyup="filtrarCards(this, 'grid-diag')">
+                    <input type="text" placeholder="Pesquisar categoria ou exame..." onkeyup="filterContent(this, 'grid-diag')">
                 </div>
             </div>
-            <div class="cards-container" id="grid-diag">
-                <div class="card-unit">
-                    <div class="card-unit-title">ANESTESIA</div>
-                    <div class="card-unit-body">
-                        <button onclick="openModal('Anestesia US', 'Protocolo para exame de Ultrassom.')">Anestesia para exame de Ultrassom</button>
-                        <button onclick="openModal('Anestesia Tomo', 'Protocolo para exame de Tomografia.')">Anestesia para exame de Tomografia</button>
-                        <button onclick="openModal('Anestesia RM', 'Protocolo para exame de Ressonância.')">Anestesia para Ressonância Magnética</button>
-                    </div>
-                </div>
-                <div class="card-unit">
-                    <div class="card-unit-title">DENSITOMETRIA</div>
-                    <div class="card-unit-body">
-                        <button onclick="openModal('Avaliação VFL', 'Avaliação VFL.')">Avaliação VFL</button>
-                        <button onclick="openModal('Corpo Inteiro', 'Corpo Inteiro.')">Corpo Inteiro</button>
-                        <button onclick="openModal('Um Segmento', 'Um Segmento.')">Um Segmento</button>
-                        <button onclick="openModal('Dois Seguimentos', 'Dois Seguimentos.')">Dois Seguimentos</button>
-                    </div>
-                </div>
-                <div class="card-unit">
-                    <div class="card-unit-title">MAMOGRAFIA</div>
-                    <div class="card-unit-body">
-                        <button>MAMOGRAFIA DIGITAL</button>
-                        <button>TOMOSSÍNTESE MAMÁRIA</button>
-                        <button>MAMA AMPLIAÇÃO</button>
-                    </div>
-                </div>
-                <div class="card-unit">
-                    <div class="card-unit-title">RAIO X</div>
-                    <div class="card-unit-body">
-                        <button>Abdome</button><button>Coluna</button><button>Crânio</button>
-                        <button>Membro Inferior</button><button>Membro Superior</button>
-                        <button>Contrastados</button><button>Torax</button>
-                    </div>
-                </div>
-                <div class="card-unit">
-                    <div class="card-unit-title">RESSONÂNCIA MAGNÉTICA</div>
-                    <div class="card-unit-body">
-                        <button>Cardio</button><button>Coluna</button><button>Fetal</button>
-                        <button>Mama</button><button>Medicina Interna</button><button>Musculo</button><button>Neuro</button>
-                    </div>
-                </div>
-                <div class="card-unit">
-                    <div class="card-unit-title">TOMOGRAFIA</div>
-                    <div class="card-unit-body">
-                        <button>Cardio</button><button>Coluna</button><button>Medicina Interna</button>
-                        <button>Musculo</button><button>Neuro</button>
-                    </div>
-                </div>
-                <div class="card-unit">
-                    <div class="card-unit-title">ULTRASSONOGRAFIA</div>
-                    <div class="card-unit-body">
-                        <button>US Doppler</button><button>US Geral</button><button>US Mama</button>
-                        <button>Us Musculo</button><button>Us Obstetrico</button>
-                    </div>
-                </div>
+            <div class="cards-grid" id="grid-diag">
+                <div class="card-item"><div class="card-label">ANESTESIA</div><div class="btn-group"><button onclick="openModal('Anestesia US', 'Protocolo Anestesia US')">Anestesia para exame de Ultrassom</button><button onclick="openModal('Anestesia Tomo', 'Protocolo Anestesia Tomo')">Anestesia para exame de Tomografia</button><button onclick="openModal('Anestesia RM', 'Protocolo Anestesia RM')">Anestesia para Ressonância Magnética</button></div></div>
+                <div class="card-item"><div class="card-label">DENSITOMETRIA</div><div class="btn-group"><button>Avaliação VFL</button><button>Corpo Inteiro</button><button>Um Segmento</button><button>Dois Seguimentos</button></div></div>
+                <div class="card-item"><div class="card-label">MAMOGRAFIA</div><div class="btn-group"><button>MAMOGRAFIA DIGITAL</button><button>TOMOSSÍNTESE MAMÁRIA</button><button>MAMA AMPLIAÇÃO</button></div></div>
+                <div class="card-item"><div class="card-label">RAIO X</div><div class="btn-group"><button>Abdome</button><button>Coluna</button><button>Crânio</button><button>Torax</button><button>Membros</button></div></div>
+                <div class="card-item"><div class="card-label">RESSONÂNCIA MAGNÉTICA</div><div class="btn-group"><button>Cardio</button><button>Coluna</button><button>Fetal</button><button>Mama</button><button>Medicina Interna</button><button>Musculo</button><button>Neuro</button></div></div>
+                <div class="card-item"><div class="card-label">TOMOGRAFIA</div><div class="btn-group"><button>Cardio</button><button>Coluna</button><button>Medicina Interna</button><button>Musculo</button><button>Neuro</button></div></div>
+                <div class="card-item"><div class="card-label">ULTRASSONOGRAFIA</div><div class="btn-group"><button>US Doppler</button><button>US Geral</button><button>US Mama</button><button>Us Musculo</button><button>Us Obstetrico</button></div></div>
             </div>
         </section>
 
         <section id="intervencionista" class="page">
-            <div class="page-header-row">
-                <h2>Medicina Intervencionista</h2>
-                <div class="search-premium">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Filtrar procedimentos..." onkeyup="filtrarCards(this, 'grid-inter')">
-                </div>
-            </div>
-            <div class="cards-container" id="grid-inter">
-                <div class="card-unit teal-border">
-                    <div class="card-unit-title">PROCEDIMENTO SUPERFICIAL</div>
-                    <div class="card-unit-body"><button style="height: 60px;">PAAF SUPERFICIAL</button></div>
-                </div>
-                <div class="card-unit teal-border">
-                    <div class="card-unit-title">PROCEDIMENTO PROFUNDO</div>
-                    <div class="card-unit-body">
-                        <button>Ablação em Geral</button><button>Biópsia em Geral</button>
-                        <button>Nefrostomia</button><button>Paracentese</button>
-                        <button>Toraconcetese</button><button>Drenagem em Geral</button>
-                    </div>
-                </div>
-                <div class="card-unit teal-border">
-                    <div class="card-unit-title">PROCEDIMENTO EM MAMA</div>
-                    <div class="card-unit-body">
-                        <button>Core Biopsy</button><button>Mamotomia</button><button>Marcação</button>
-                    </div>
-                </div>
-                <div class="card-unit teal-border">
-                    <div class="card-unit-title">PROCEDIMENTO EM PRÓSTATA</div>
-                    <div class="card-unit-body">
-                        <button>Transretal Simples</button><button>Transretal com Fusão</button><button>Taxa de Perfusão</button>
-                    </div>
-                </div>
+            <div class="section-header"><h2>Medicina Intervencionista</h2></div>
+            <div class="cards-grid" id="grid-inter">
+                <div class="card-item teal"><div class="card-label">PROCEDIMENTO SUPERFICIAL</div><div class="btn-group"><button>PAAF SUPERFICIAL</button></div></div>
+                <div class="card-item teal"><div class="card-label">PROCEDIMENTO PROFUNDO</div><div class="btn-group"><button>Ablação</button><button>Biópsia</button><button>Nefrostomia</button><button>Paracentese</button><button>Toraconcetese</button></div></div>
+                <div class="card-item teal"><div class="card-label">MAMA</div><div class="btn-group"><button>Core Biopsy</button><button>Mamotomia</button><button>Marcação</button></div></div>
+                <div class="card-item teal"><div class="card-label">PRÓSTATA</div><div class="btn-group"><button>Transretal Simples</button><button>Transretal com Fusão</button></div></div>
             </div>
         </section>
 
         <section id="fluxos" class="page">
-            <div class="page-header"><h2>Departamentos</h2></div>
-            <div class="cards-container">
-                <div class="card-unit gray-border">
-                    <div class="card-unit-title">Administrativo</div>
-                    <div class="card-unit-body"><button>Call Center</button><button>Recepção</button></div>
-                </div>
-                <div class="card-unit gray-border">
-                    <div class="card-unit-title">Assistencial</div>
-                    <div class="card-unit-body"><button>Enfermagem</button><button>Técnico de Radiologia</button></div>
-                </div>
-                <div class="card-unit gray-border">
-                    <div class="card-unit-title">Médico</div>
-                    <div class="card-unit-body"><button>Médico Radiologista</button></div>
-                </div>
+            <div class="section-header"><h2>Fluxos por Departamento</h2></div>
+            <div class="cards-grid">
+                <div class="card-item gray"><div class="card-label">ATENDIMENTO</div><div class="btn-group"><button>Call Center</button><button>Recepção</button></div></div>
+                <div class="card-item gray"><div class="card-label">ASSISTENCIAL</div><div class="btn-group"><button>Enfermagem</button><button>Técnico de Radiologia</button></div></div>
+                <div class="card-item gray"><div class="card-label">MÉDICO</div><div class="btn-group"><button>Médico Radiologista</button></div></div>
             </div>
         </section>
 
         <section id="agendas" class="page">
-            <div class="page-header"><h2>Parametrização Hospitalar de Agendas</h2></div>
-            
-            <div class="kpi-row">
-                <div class="kpi-item-box kpi-green">Eletivo+Espec: <span id="valElEsp">0</span></div>
-                <div class="kpi-item-box kpi-blue">Internado+PS: <span id="valUr">0</span></div>
-                <div class="kpi-item-box kpi-red">Manutenção: <span id="valMa">0</span></div>
-                <div class="kpi-item-box kpi-orange">Respiros: <span id="valRe">0</span></div>
-                <div class="kpi-item-box kpi-dark">Total Mensal: <span id="valTotal">0</span></div>
+            <div class="section-header"><h2>Parametrização Hospitalar</h2></div>
+            <div class="kpi-floating-bar">
+                <div class="kpi-pill g">Eletivo: <span id="kpiEl">0</span></div>
+                <div class="kpi-pill r">Manutenção: <span id="kpiMa">0</span></div>
+                <div class="kpi-pill b">Total: <span id="kpiTo">0</span></div>
             </div>
-
-            <div class="agenda-wrapper">
-                <div class="sidebar-params">
-                    <div class="tab-list-ag" id="tabsAgendas"></div>
-                    <div class="param-inputs">
-                        <label>Mês:</label><select id="selMes" onchange="carregarAg()"></select>
-                        <label>Ano:</label><select id="selAno" onchange="carregarAg()"></select>
-                        <label>Slot (min):</label><input type="number" id="slotMin" value="20" oninput="forcarGrade()">
-                        <label>Identificação:</label><input type="text" id="renameAg" placeholder="Ex: Sala 01">
-                    </div>
-                    <div class="bulk-actions">
-                        <button onclick="aplicarMassa()" class="btn-bulk">Preencher Grade Total</button>
+            <div class="agenda-container">
+                <div class="ag-sidebar">
+                    <div id="agTabs" class="ag-tabs"></div>
+                    <div class="ag-form">
+                        <label>Mês:</label><select id="selMes" onchange="loadAg()"></select>
+                        <label>Ano:</label><select id="selAno" onchange="loadAg()"></select>
+                        <label>Sala:</label><input type="text" id="renAg" placeholder="Ex: RM Sala 1">
+                        <button onclick="applyBulk()" class="btn-bulk">Preencher Grade</button>
                     </div>
                 </div>
-
-                <div class="agenda-view-content">
-                    <div class="agenda-actions-bar">
-                        <button class="btn-save" onclick="salvarAg()"><i class="fas fa-save"></i> Gravar Mês</button>
-                        <button class="btn-png" onclick="exportarAg()"><i class="fas fa-camera"></i> Gerar PNG</button>
-                    </div>
-                    <div id="areaCaptura" class="capture-container">
-                        <div class="header-capture-info">
-                            <h3 id="capTit">Agenda</h3>
-                            <span id="capPeriodo"></span>
-                        </div>
-                        <div id="gradeDiv" class="grade-table-scroll"></div>
-                    </div>
+                <div class="ag-main">
+                    <div class="ag-actions"><button onclick="saveAg()" class="btn-save">Salvar</button></div>
+                    <div id="gradeDiv" class="grade-scroll"></div>
                 </div>
             </div>
         </section>
 
-        <footer class="system-version">Versão 16.0 - Hospital Vera Cruz</footer>
+        <footer class="footer-version">Versão 17.0 - Hospital Vera Cruz</footer>
     </main>
 
-    <div id="modal" class="modal-overlay">
-        <div class="modal-card">
-            <span class="modal-close" onclick="closeModal()">&times;</span>
-            <div class="modal-content-area">
-                <h2 id="modal-title"></h2>
-                <div class="modal-separator"></div>
-                <div id="modal-text"></div>
-            </div>
-            <button class="btn-modal-close" onclick="closeModal()">Fechar</button>
+    <div id="modal" class="modal-bg">
+        <div class="modal-box">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div id="modal-content"></div>
         </div>
     </div>
 
