@@ -1,5 +1,5 @@
 let currentAg = 'ag1';
-const monthsNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+const monthsExt = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
 function showPage(p) {
     document.querySelectorAll('.page').forEach(pg => pg.classList.remove('active'));
@@ -10,9 +10,9 @@ function showPage(p) {
     if (p === 'agendas') carregarAg();
 }
 
-function filtrarCategorias(input, gridId) {
+function filtrarCards(input, gridId) {
     const t = input.value.toLowerCase();
-    const cards = document.querySelectorAll(`#${gridId} .category-card`);
+    const cards = document.querySelectorAll(`#${gridId} .card-unit`);
     cards.forEach(card => {
         const btns = card.querySelectorAll('button');
         let cardMatch = false;
@@ -28,20 +28,20 @@ function filtrarCategorias(input, gridId) {
     });
 }
 
-// ENGINE DE AGENDA V15
-function initSystem() {
+// INICIALIZAÇÃO E ENGINE DA AGENDA
+function init() {
     const m = document.getElementById('selMes');
     const a = document.getElementById('selAno');
     if (!m) return;
     const d = new Date();
-    monthsNames.forEach((name, i) => m.add(new Option(name, i)));
+    monthsExt.forEach((name, i) => m.add(new Option(name, i)));
     for (let i = d.getFullYear(); i <= d.getFullYear() + 2; i++) a.add(new Option(i, i));
     m.value = d.getMonth();
 
     const tabs = document.getElementById('tabsAgendas');
     for (let i = 1; i <= 9; i++) {
         let b = document.createElement('button');
-        b.className = `tab-link ${i === 1 ? 'active' : ''}`;
+        b.className = `tab-link-ag ${i === 1 ? 'active' : ''}`;
         b.innerText = `Agenda 0${i}`;
         b.onclick = function() { selectAg(`ag${i}`, this); };
         tabs.appendChild(b);
@@ -50,7 +50,7 @@ function initSystem() {
 
 function selectAg(id, btn) {
     currentAg = id;
-    document.querySelectorAll('.tab-link').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-link-ag').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     carregarAg();
 }
@@ -72,98 +72,87 @@ function gerarGradeAg() {
         for (let d = 0; d < 7; d++) {
             const id = `s-${min}-${d}`;
             html += `<td>
-                <select class="s-inp" id="${id}" onchange="toggleEs(this)">
-                    <option value="eletivo">Eletivo</option>
+                <select class="s-inp" id="${id}" onchange="calcAg()">
+                    <option value="ex">Eletivo</option>
                     <option value="ps">P.S.</option>
-                    <option value="internado">Internado</option>
-                    <option value="manutencao">Manut.</option>
-                    <option value="respiro">Respiro</option>
-                    <option value="bloqueio">Bloqueio</option>
-                    <option value="especifico">Específico</option>
+                    <option value="in">Internado</option>
+                    <option value="ma">Manut.</option>
+                    <option value="re">Respiro</option>
+                    <option value="bl">Bloqueio</option>
+                    <option value="es">Específico</option>
                 </select>
-                <input type="text" id="${id}-tx" class="input-especifico-box" placeholder="Exame...">
+                <input type="text" id="${id}-tx" style="width:100%; display:none; font-size:10px;" placeholder="...">
             </td>`;
         }
         html += `</tr>`;
     }
     cont.innerHTML = html + `</tbody></table>`;
-    calcAg();
-}
-
-function toggleEs(sel) {
-    const tx = document.getElementById(sel.id + "-tx");
-    tx.style.display = sel.value === 'especifico' ? "block" : "none";
+    
+    // Adicionar listener para inputs específicos
+    document.querySelectorAll('.s-inp').forEach(s => {
+        s.addEventListener('change', function() {
+            const tx = document.getElementById(this.id + '-tx');
+            tx.style.display = this.value === 'es' ? 'block' : 'none';
+        });
+    });
     calcAg();
 }
 
 function calcAg() {
     const sels = document.querySelectorAll('.s-inp');
-    let el = 0, esp = 0, ur = 0, ma = 0, re = 0;
+    let ex = 0, ur = 0, ma = 0, re = 0;
     sels.forEach(s => {
-        if(s.value === 'eletivo') el++;
-        if(s.value === 'especifico') esp++;
-        if(s.value === 'ps' || s.value === 'internado') ur++;
-        if(s.value === 'manutencao') ma++;
-        if(s.value === 'respiro') re++;
-        
-        s.style.backgroundColor = s.value === 'manutencao' ? '#fee2e2' : (s.value === 'ps' || s.value === 'internado' ? '#eff6ff' : '#dcfce7');
+        if(s.value === 'ex' || s.value === 'es') ex++;
+        if(s.value === 'ps' || s.value === 'in') ur++;
+        if(s.value === 'ma') ma++;
+        if(s.value === 're') re++;
+        s.parentElement.style.backgroundColor = s.value === 'ma' ? '#fee2e2' : (s.value === 'ps' || s.value === 'in' ? '#eff6ff' : '#dcfce7');
     });
-    const f = 4.3; // Média mensal
-    document.getElementById('valElEsp').innerText = Math.round((el + esp) * f);
-    document.getElementById('valUr').innerText = Math.round(ur * f);
-    document.getElementById('valMa').innerText = Math.round(ma * f);
-    document.getElementById('valRe').innerText = Math.round(re * f);
-    document.getElementById('valTotal').innerText = Math.round(sels.length * f);
+    const fator = 4.3;
+    document.getElementById('valElEsp').innerText = Math.round(ex * fator);
+    document.getElementById('valUr').innerText = Math.round(ur * fator);
+    document.getElementById('valMa').innerText = Math.round(ma * fator);
+    document.getElementById('valRe').innerText = Math.round(re * fator);
+    document.getElementById('valTotal').innerText = Math.round(sels.length * fator);
 }
 
 function salvarAg() {
-    const mes = document.getElementById('selMes').value;
-    const ano = document.getElementById('selAno').value;
-    const key = `v15_${currentAg}_${mes}_${ano}`;
-    const d = { 
-        nome: document.getElementById('renameAg').value, 
-        slot: document.getElementById('slotMin').value, 
-        mapa: [] 
-    };
+    const key = `v16_${currentAg}_${document.getElementById('selMes').value}_${document.getElementById('selAno').value}`;
+    const d = { n: document.getElementById('renameAg').value, s: document.getElementById('slotMin').value, m: [] };
     document.querySelectorAll('.s-inp').forEach(s => {
-        d.mapa.push({ id: s.id, v: s.value, t: document.getElementById(s.id + "-tx").value });
+        d.m.push({ id: s.id, v: s.value, t: document.getElementById(s.id + '-tx').value });
     });
     localStorage.setItem(key, JSON.stringify(d));
-    alert("Parâmetros Gravados com Sucesso!");
+    alert("Parametrização Salva!");
 }
 
 function carregarAg() {
-    const mes = document.getElementById('selMes').value;
-    const ano = document.getElementById('selAno').value;
-    const key = `v15_${currentAg}_${mes}_${ano}`;
+    const key = `v16_${currentAg}_${document.getElementById('selMes').value}_${document.getElementById('selAno').value}`;
     const s = localStorage.getItem(key);
-    
     gerarGradeAg();
-
     if(s) {
         const d = JSON.parse(s);
-        document.getElementById('renameAg').value = d.nome || "";
-        document.getElementById('slotMin').value = d.slot || 20;
-        if(d.slot != 20) gerarGradeAg();
-        d.mapa.forEach(item => {
+        document.getElementById('renameAg').value = d.n || "";
+        document.getElementById('slotMin').value = d.s || 20;
+        if(d.s != 20) gerarGradeAg();
+        d.m.forEach(item => {
             const el = document.getElementById(item.id);
             if(el) {
                 el.value = item.v;
-                const tx = document.getElementById(item.id + "-tx");
-                if(tx) { tx.value = item.t || ""; if(item.v === 'especifico') tx.style.display = "block"; }
+                const tx = document.getElementById(item.id + '-tx');
+                if(tx) { tx.value = item.t || ""; if(item.v === 'es') tx.style.display = 'block'; }
             }
         });
     } else {
         document.getElementById('renameAg').value = "";
     }
     document.getElementById('capTit').innerText = document.getElementById('renameAg').value || "Agenda";
-    document.getElementById('capPeriodo').innerText = monthsNames[mes] + " / " + ano;
+    document.getElementById('capPeriodo').innerText = monthsExt[document.getElementById('selMes').value] + " / " + document.getElementById('selAno').value;
     calcAg();
 }
 
 function aplicarMassa() {
-    const st = document.getElementById('bulkStatus').value;
-    document.querySelectorAll('.s-inp').forEach(s => { s.value = st; toggleEs(s); });
+    document.querySelectorAll('.s-inp').forEach(s => { s.value = 'ex'; s.parentElement.style.backgroundColor = '#dcfce7'; });
     calcAg();
 }
 
@@ -175,4 +164,4 @@ function openModal(t, txt) {
 
 function closeModal() { document.getElementById('modal').style.display = 'none'; }
 
-window.onload = initSystem;
+window.onload = init;
