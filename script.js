@@ -1,5 +1,5 @@
-let currentAg = 'ag1';
-const monthsN = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+let currentAgId = 'ag1';
+const monthsNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
 function showPage(p) {
     document.querySelectorAll('.page').forEach(pg => pg.classList.remove('active'));
@@ -25,14 +25,14 @@ function filtrar(contexto) {
     buttons.forEach(b => b.style.display = b.innerText.toLowerCase().includes(term) ? "block" : "none");
 }
 
-// LÓGICA DE AGENDA FUNCIONAL
+// LÓGICA DE AGENDA HOSPITALAR
 function initSystem() {
     const m = document.getElementById('selMes');
     const a = document.getElementById('selAno');
     if (!m) return;
     const d = new Date();
     m.innerHTML = ""; a.innerHTML = "";
-    monthsN.forEach((name, i) => m.add(new Option(name, i)));
+    monthsNames.forEach((name, i) => m.add(new Option(name, i)));
     for (let i = d.getFullYear(); i <= d.getFullYear() + 2; i++) a.add(new Option(i, i));
     m.value = d.getMonth();
 
@@ -49,7 +49,7 @@ function initSystem() {
 }
 
 function selectAg(id, btn) {
-    currentAg = id;
+    currentAgId = id;
     document.querySelectorAll('.tab-link').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     carregarAg();
@@ -104,7 +104,7 @@ function calcAg() {
 function salvarAg() {
     const mes = document.getElementById('selMes').value;
     const ano = document.getElementById('selAno').value;
-    const key = `v7_${currentAg}_${mes}_${ano}`;
+    const key = `vc7_${currentAgId}_${mes}_${ano}`;
     const dados = { 
         nome: document.getElementById('renameAg').value, 
         slot: document.getElementById('slotMin').value, 
@@ -114,16 +114,16 @@ function salvarAg() {
         dados.mapa.push({ id: s.id, v: s.value });
     });
     localStorage.setItem(key, JSON.stringify(dados));
-    alert("Dados da Agenda Gravados!");
+    alert("Parametrização Salva!");
 }
 
 function carregarAg() {
     const mes = document.getElementById('selMes').value;
     const ano = document.getElementById('selAno').value;
-    const key = `v7_${currentAg}_${mes}_${ano}`;
+    const key = `vc7_${currentAgId}_${mes}_${ano}`;
     const salvo = localStorage.getItem(key);
     
-    // Primeiro gera a grade padrão
+    // Primeiro gera a grade limpa
     gerarGradeAg();
 
     if (salvo) {
@@ -131,7 +131,7 @@ function carregarAg() {
         document.getElementById('renameAg').value = d.nome || "";
         document.getElementById('slotMin').value = d.slot || 20;
         
-        // Se o slot salvo for diferente de 20, re-gera a grade antes de preencher
+        // Se o slot salvo for diferente do padrão, regenera a grade antes de preencher
         if(d.slot != 20) gerarGradeAg();
 
         d.mapa.forEach(item => {
@@ -142,14 +142,14 @@ function carregarAg() {
         document.getElementById('renameAg').value = "";
     }
     document.getElementById('capTit').innerText = document.getElementById('renameAg').value || "Agenda";
-    document.getElementById('capPeriodo').innerText = monthsN[mes] + " / " + ano;
+    document.getElementById('capPeriodo').innerText = monthsNames[mes] + " / " + ano;
     calcAg();
 }
 
 function exportarAg() {
     html2canvas(document.getElementById('areaCaptura')).then(canvas => {
         const link = document.createElement('a');
-        link.download = `Agenda_${currentAg}.png`;
+        link.download = `Agenda_${currentAgId}.png`;
         link.href = canvas.toDataURL();
         link.click();
     });
