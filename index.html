@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal de Consulta de Fluxos - Hospital Vera Cruz</title>
+    <title>Portal Medicina Diagnóstica - Vera Cruz</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -17,7 +17,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
         body { display: flex; background: var(--bg); height: 100vh; overflow: hidden; }
 
-        /* Sidebar Blindada - Impede o erro de vazar botões */
+        /* Sidebar Blindada */
         .sidebar { width: 280px; background: var(--navy); color: white; display: flex; flex-direction: column; flex-shrink: 0; height: 100vh; z-index: 100; }
         .sidebar-header { padding: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); text-align: center; }
         .logo-box { width: 50px; height: 50px; background: var(--teal); color: var(--navy); font-weight: 800; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 1.2rem; }
@@ -36,9 +36,9 @@
         /* Busca Sofisticada */
         .search-container { position: relative; max-width: 500px; margin-bottom: 30px; }
         .search-container i { position: absolute; left: 15px; top: 13px; color: var(--primary); }
-        .search-container input { width: 100%; padding: 12px 15px 12px 45px; border-radius: 30px; border: none; box-shadow: var(--shadow); outline: none; font-size: 0.9rem; }
+        .search-container input { width: 100%; padding: 12px 15px 12px 45px; border-radius: 30px; border: none; box-shadow: var(--shadow); outline: none; font-size: 0.9rem; border: 1px solid #e2e8f0; }
 
-        /* Grid de Cards Individuais */
+        /* Grid de Cards */
         .grid-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
         .card-unit { background: white; border-radius: 20px; box-shadow: var(--shadow); border-top: 6px solid var(--primary); overflow: hidden; display: flex; flex-direction: column; }
         .card-header { background: #f8fafc; padding: 15px; font-weight: 700; text-align: center; font-size: 0.8rem; border-bottom: 1px solid #eee; text-transform: uppercase; color: var(--navy); }
@@ -48,15 +48,14 @@
         .teal-card { border-top-color: var(--teal); }
         .gray-card { border-top-color: #64748b; }
 
-        /* Agenda e KPIs Flutuantes */
+        /* Agenda e KPIs */
         .kpi-row { display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; }
         .kpi-pill { padding: 12px 20px; border-radius: 50px; color: white; font-weight: 700; font-size: 0.75rem; box-shadow: var(--shadow); }
         .kpi-green { background: #10b981; } .kpi-blue { background: #3b82f6; } .kpi-red { background: #ef4444; } .kpi-orange { background: #f59e0b; } .kpi-dark { background: #1e293b; }
 
         .agenda-box { display: flex; gap: 25px; height: calc(100vh - 250px); }
         .ag-sidebar { width: 250px; background: white; border-radius: 25px; padding: 25px; box-shadow: var(--shadow); overflow-y: auto; }
-        .ag-tabs { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
-        .tab-btn { padding: 10px; border: 1px solid #f1f5f9; border-radius: 10px; cursor: pointer; font-size: 0.8rem; font-weight: 700; background: white; text-align: left; }
+        .tab-btn { width: 100%; padding: 10px; border: 1px solid #f1f5f9; border-radius: 10px; cursor: pointer; font-size: 0.8rem; font-weight: 700; background: white; text-align: left; margin-bottom: 5px; }
         .tab-btn.active { background: var(--primary); color: white; }
 
         .ag-field { margin-bottom: 12px; }
@@ -67,14 +66,12 @@
         .grade-table { width: 100%; border-collapse: collapse; font-size: 0.7rem; }
         .grade-table th { background: var(--navy); color: white; padding: 12px; position: sticky; top: 0; z-index: 5; }
         .grade-table td { border: 1px solid #f1f5f9; padding: 4px; text-align: center; }
-        .grade-table select { border: none; background: transparent; width: 100%; font-size: 0.7rem; cursor: pointer; }
         .especifico-input { width: 100%; border: 1px solid #ddd; border-radius: 4px; font-size: 0.6rem; margin-top: 3px; display: none; }
 
-        /* Modal e Rodapé */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); backdrop-filter: blur(8px); z-index: 1000; }
-        .modal-content { background: white; margin: 10% auto; padding: 40px; border-radius: 30px; width: 90%; max-width: 500px; text-align: center; position: relative; }
-        .close-modal { position: absolute; top: 20px; right: 20px; cursor: pointer; font-size: 1.5rem; }
+        /* Rodapé e Modal */
         .footer-version { position: fixed; bottom: 20px; right: 40px; font-size: 0.75rem; color: #cbd5e1; font-weight: 800; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); backdrop-filter: blur(8px); z-index: 1000; }
+        .modal-content { background: white; margin: 10% auto; padding: 40px; border-radius: 30px; width: 450px; text-align: center; position: relative; }
     </style>
 </head>
 <body>
@@ -95,120 +92,96 @@
     </aside>
 
     <main class="main-content">
+        
         <section id="dashboard" class="page">
-            <div class="section-header"><h1>Dashboard de Performance</h1></div>
-            <div style="background:white; padding:50px; border-radius:20px; text-align:center; box-shadow: var(--shadow);">
-                <h3>Volume de Exames e Produtividade</h3>
-                <p>Módulo de análise de dados em tempo real.</p>
+            <div class="card-unit" style="padding: 40px; text-align: center;">
+                <h2>Dashboard de Performance</h2>
+                <p>Indicadores de ocupação de sala e produtividade técnica.</p>
             </div>
         </section>
 
         <section id="home" class="page active">
-            <div class="section-header">
-                <h1 style="font-size: 3rem; color: var(--primary);">Portal de Consulta de Fluxos</h1>
-                <p>Hospital Vera Cruz | Gestão de Capacidade e Protocolos</p>
-            </div>
+            <h1 style="font-size: 3rem; color: var(--primary);">Portal de Consulta de Fluxos</h1>
+            <p>Hospital Vera Cruz | Gestão e Processos</p>
             <div class="grid-layout" style="margin-top: 40px;">
-                <div class="hero-card" style="background:white; padding:40px; border-radius:25px; box-shadow:var(--shadow); cursor:pointer; text-align:center;" onclick="showPage('diagnostica')">
-                    <i class="fas fa-file-medical" style="font-size:3rem; color:var(--primary); margin-bottom:20px;"></i>
-                    <h2>Medicina Diagnóstica</h2>
+                <div class="card-unit" style="padding:40px; text-align:center; cursor:pointer;" onclick="showPage('diagnostica')">
+                    <i class="fas fa-file-medical" style="font-size:3rem; color:var(--primary);"></i>
+                    <h3>Medicina Diagnóstica</h3>
                 </div>
-                <div class="hero-card" style="background:white; padding:40px; border-radius:25px; box-shadow:var(--shadow); cursor:pointer; text-align:center;" onclick="showPage('intervencionista')">
-                    <i class="fas fa-syringe" style="font-size:3rem; color:var(--teal); margin-bottom:20px;"></i>
-                    <h2>Medicina Intervencionista</h2>
+                <div class="card-unit" style="padding:40px; text-align:center; cursor:pointer;" onclick="showPage('intervencionista')">
+                    <i class="fas fa-syringe" style="font-size:3rem; color:var(--teal);"></i>
+                    <h3>Medicina Intervencionista</h3>
                 </div>
             </div>
         </section>
 
         <section id="diagnostica" class="page">
-            <div class="section-header">
-                <h2>Medicina Diagnóstica</h2>
-                <div class="search-container">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Filtrar exames..." onkeyup="filterCards(this, 'grid-diag')">
-                </div>
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Pesquisar exames..." onkeyup="filterCards(this, 'grid-diag')">
             </div>
             <div class="grid-layout" id="grid-diag">
                 <div class="card-unit"><div class="card-header">ANESTESIA</div><div class="card-body">
-                    <button onclick="openModal('Anestesia US', 'Protocolo para Ultrassom.')">Anestesia para exame de Ultrassom</button>
-                    <button onclick="openModal('Anestesia TC', 'Protocolo para Tomografia.')">Anestesia para exame de Tomografia</button>
-                    <button onclick="openModal('Anestesia RM', 'Protocolo para Ressonância.')">Anestesia para Ressonância Magnética</button>
+                    <button onclick="openModal('Anestesia US', 'Protocolo Anestesia US')">Anestesia para Ultrassom</button>
+                    <button onclick="openModal('Anestesia TC', 'Protocolo Anestesia TC')">Anestesia para Tomografia</button>
                 </div></div>
-                <div class="card-unit"><div class="card-header">DENSITOMETRIA</div><div class="card-body">
-                    <button>Avaliação VFL</button><button>Corpo Inteiro</button><button>Um Segmento</button><button>Dois Seguimentos</button>
-                </div></div>
-                <div class="card-unit"><div class="card-header">MAMOGRAFIA</div><div class="card-body">
-                    <button>MAMOGRAFIA DIGITAL</button><button>TOMOSSÍNTESE MAMÁRIA</button><button>MAMA AMPLIAÇÃO</button>
+                <div class="card-unit"><div class="card-header">RAIO X</div><div class="card-body">
+                    <button>Abdome</button><button>Coluna</button><button>Crânio</button><button>Membros</button><button>Tórax</button>
                 </div></div>
                 <div class="card-unit"><div class="card-header">RESSONÂNCIA MAGNÉTICA</div><div class="card-body">
-                    <button>Cardio</button><button>Coluna</button><button>Fetal</button><button>Mama</button><button>Medicina Interna</button><button>Neuro</button>
+                    <button>Neuro</button><button>Cardio</button><button>Fetal</button><button>Medicina Interna</button>
                 </div></div>
                 <div class="card-unit"><div class="card-header">TOMOGRAFIA</div><div class="card-body">
-                    <button>Cardio</button><button>Coluna</button><button>Medicina Interna</button><button>Neuro</button>
-                </div></div>
-                <div class="card-unit"><div class="card-header">ULTRASSONOGRAFIA</div><div class="card-body">
-                    <button>US Doppler</button><button>US Geral</button><button>US Mama</button><button>Us Musculo</button><button>Us Obstetrico</button>
+                    <button>Neuro</button><button>Cardio</button><button>Medicina Interna</button><button>Músculo</button>
                 </div></div>
             </div>
         </section>
 
         <section id="intervencionista" class="page">
-            <div class="section-header"><h2>Medicina Intervencionista</h2></div>
             <div class="grid-layout" id="grid-inter">
+                <div class="card-unit teal-card"><div class="card-header">PROCEDIMENTO SUPERFICIAL</div><div class="card-body">
+                    <button>PAAF SUPERFICIAL</button>
+                </div></div>
                 <div class="card-unit teal-card"><div class="card-header">PROCEDIMENTO PROFUNDO</div><div class="card-body">
-                    <button>Ablação em Geral</button><button>Biópsia em Geral</button><button>Nefrostomia</button><button>Toraconcetese</button>
+                    <button>Ablação</button><button>Biópsia</button><button>Nefrostomia</button><button>Drenagem</button>
                 </div></div>
-                <div class="card-unit teal-card"><div class="card-header">PRÓSTATA</div><div class="card-body">
-                    <button>Transretal Simples</button><button>Transretal com Fusão</button><button>Transperineal Particular</button>
-                </div></div>
-                <div class="card-unit teal-card"><div class="card-header">PROCEDIMENTO DIVERSOS</div><div class="card-body">
-                    <button>Anestesia</button><button>Artro RM</button><button>Consulta</button><button>Dacrio</button>
+                <div class="card-unit teal-card"><div class="card-header">PROCEDIMENTO EM MAMA</div><div class="card-body">
+                    <button>Core Biopsy</button><button>Mamotomia</button><button>Marcação</button>
                 </div></div>
             </div>
         </section>
 
         <section id="fluxos" class="page">
-            <div class="section-header"><h2>Departamentos</h2></div>
             <div class="grid-layout">
                 <div class="card-unit gray-card"><div class="card-header">ATENDIMENTO</div><div class="card-body">
                     <button>Call Center</button><button>Recepção</button>
-                </div></div>
-                <div class="card-unit gray-card"><div class="card-header">ASSISTENCIAL</div><div class="card-body">
-                    <button>Enfermagem</button><button>Técnico de Radiologia</button>
                 </div></div>
             </div>
         </section>
 
         <section id="agendas" class="page">
-            <div class="section-header"><h2>Gestão Hospitalar de Agendas</h2></div>
             <div class="kpi-row">
                 <div class="kpi-pill kpi-green">Eletivo + Espec: <span id="kpiEl">0</span></div>
-                <div class="kpi-pill kpi-blue">Internado + PS: <span id="kpiUr">0</span></div>
                 <div class="kpi-pill kpi-red">Manutenção: <span id="kpiMa">0</span></div>
-                <div class="kpi-pill kpi-orange">Respiros: <span id="kpiRe">0</span></div>
-                <div class="kpi-pill kpi-dark">Total Slots: <span id="kpiTo">0</span></div>
+                <div class="kpi-pill kpi-dark">Total Mensal: <span id="kpiTo">0</span></div>
             </div>
             <div class="agenda-box">
                 <div class="ag-sidebar">
                     <div id="agTabs" class="ag-tabs"></div>
                     <div class="ag-field"><label>Mês:</label><select id="selMes" onchange="loadAg()"></select></div>
                     <div class="ag-field"><label>Ano:</label><select id="selAno" onchange="loadAg()"></select></div>
-                    <div class="ag-field"><label>Identificação:</label><input type="text" id="renameAg" placeholder="Ex: Sala 01"></div>
-                    <button onclick="saveAg()" style="width:100%; padding:12px; background:var(--primary); color:white; border:none; border-radius:10px; cursor:pointer; font-weight:700;">Gravar Mês</button>
-                    <button onclick="applyBulk()" style="width:100%; padding:10px; margin-top:10px; background:var(--teal); color:var(--navy); border:none; border-radius:10px; cursor:pointer; font-weight:700;">Preencher Grade</button>
+                    <div class="ag-field"><label>Sala:</label><input type="text" id="renameAg" placeholder="Identificação"></div>
+                    <button onclick="saveAg()" style="width:100%; padding:12px; background:var(--primary); color:white; border:none; border-radius:10px; cursor:pointer; font-weight:700;">Salvar Mês</button>
                 </div>
                 <div class="grade-container" id="gradeDiv"></div>
             </div>
         </section>
 
-        <footer class="footer-version">Versão 19.0 - Hospital Vera Cruz</footer>
+        <footer class="footer-version">Versão 20.0 - Hospital Vera Cruz</footer>
     </main>
 
     <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <div id="modal-body"></div>
-        </div>
+        <div class="modal-content"><span style="position:absolute; top:20px; right:20px; cursor:pointer;" onclick="closeModal()">&times;</span><div id="modal-body"></div></div>
     </div>
 
     <script>
@@ -250,16 +223,14 @@
             dias.forEach(d => html += `<th>${d}</th>`);
             html += `</tr></thead><tbody>`;
 
-            for (let min = 360; min < 1320; min += 20) {
+            for (let min = 360; min < 1260; min += 20) {
                 let h = Math.floor(min / 60).toString().padStart(2, '0');
                 let m = (min % 60).toString().padStart(2, '0');
-                html += `<tr><td style="font-weight:700; background:#f8fafc;">${h}:${m}</td>`;
+                html += `<tr><td style="font-weight:700;">${h}:${m}</td>`;
                 for (let d = 0; d < 7; d++) {
                     html += `<td>
                         <select class="s-inp" id="s-${min}-${d}" onchange="toggleEs(this)">
-                            <option value="el">Eletivo</option><option value="ps">P.S.</option>
-                            <option value="in">Internado</option><option value="ma">Manut.</option>
-                            <option value="re">Respiro</option><option value="es">Específico</option>
+                            <option value="el">EX</option><option value="ma">MA</option><option value="es">ESP</option>
                         </select>
                         <input type="text" id="s-${min}-${d}-tx" class="especifico-input" placeholder="...">
                     </td>`;
@@ -271,41 +242,33 @@
         }
 
         function toggleEs(sel) {
-            const tx = document.getElementById(sel.id + "-tx");
-            tx.style.display = sel.value === 'es' ? 'block' : 'none';
+            document.getElementById(sel.id + "-tx").style.display = sel.value === 'es' ? 'block' : 'none';
             calcAg();
         }
 
         function calcAg() {
-            let el = 0, ur = 0, ma = 0, re = 0;
+            let el = 0, ma = 0;
             document.querySelectorAll('.s-inp').forEach(s => {
                 if(s.value === 'el' || s.value === 'es') el++;
-                if(s.value === 'ps' || s.value === 'in') ur++;
                 if(s.value === 'ma') ma++;
-                if(s.value === 're') re++;
-                s.parentElement.style.backgroundColor = s.value === 'ma' ? '#fee2e2' : (s.value === 'ps' || s.value === 'in' ? '#eff6ff' : '#dcfce7');
+                s.parentElement.style.backgroundColor = s.value === 'ma' ? '#fee2e2' : '#dcfce7';
             });
-            const f = 4.3;
-            document.getElementById('kpiEl').innerText = Math.round(el * f);
-            document.getElementById('kpiUr').innerText = Math.round(ur * f);
-            document.getElementById('kpiMa').innerText = Math.round(ma * f);
-            document.getElementById('kpiRe').innerText = Math.round(re * f);
-            document.getElementById('kpiTo').innerText = Math.round(document.querySelectorAll('.s-inp').length * f);
+            document.getElementById('kpiEl').innerText = Math.round(el * 4.3);
+            document.getElementById('kpiMa').innerText = Math.round(ma * 4.3);
+            document.getElementById('kpiTo').innerText = Math.round(document.querySelectorAll('.s-inp').length * 4.3);
         }
 
         function saveAg() {
-            const key = `v19_${currentAgId}_${document.getElementById('selMes').value}_${document.getElementById('selAno').value}`;
+            const key = `v20_${currentAgId}_${document.getElementById('selMes').value}`;
             const data = { n: document.getElementById('renameAg').value, m: [] };
-            document.querySelectorAll('.s-inp').forEach(s => {
-                data.m.push({ id: s.id, v: s.value, t: document.getElementById(s.id + "-tx").value });
-            });
+            document.querySelectorAll('.s-inp').forEach(s => data.m.push({ id: s.id, v: s.value, t: document.getElementById(s.id + "-tx").value }));
             localStorage.setItem(key, JSON.stringify(data));
-            alert("Parametrização Salva!");
+            alert("Salvo!");
         }
 
         function loadAg() {
             gerarGrade();
-            const key = `v19_${currentAgId}_${document.getElementById('selMes').value}_${document.getElementById('selAno').value}`;
+            const key = `v20_${currentAgId}_${document.getElementById('selMes').value}`;
             const s = localStorage.getItem(key);
             if(s) {
                 const d = JSON.parse(s);
@@ -315,7 +278,7 @@
                     if(el) {
                         el.value = item.v;
                         const tx = document.getElementById(item.id + "-tx");
-                        if(tx) { tx.value = item.t || ""; if(item.v === 'es') tx.style.display = 'block'; }
+                        tx.value = item.t || ""; if(item.v === 'es') tx.style.display = 'block';
                     }
                 });
             }
@@ -324,21 +287,10 @@
 
         function filterCards(inp, gridId) {
             const t = inp.value.toLowerCase();
-            document.querySelectorAll(`#${gridId} .card-unit`).forEach(c => {
-                const match = c.innerText.toLowerCase().includes(t);
-                c.style.display = match ? 'flex' : 'none';
-            });
+            document.querySelectorAll(`#${gridId} .card-unit`).forEach(c => c.style.display = c.innerText.toLowerCase().includes(t) ? 'flex' : 'none');
         }
 
-        function applyBulk() {
-            document.querySelectorAll('.s-inp').forEach(s => s.value = 'el');
-            calcAg();
-        }
-
-        function openModal(t, txt) {
-            document.getElementById('modal-body').innerHTML = `<h3>${t}</h3><br><p>${txt}</p>`;
-            document.getElementById('modal').style.display = 'block';
-        }
+        function openModal(t, txt) { document.getElementById('modal-body').innerHTML = `<h3>${t}</h3><p>${txt}</p>`; document.getElementById('modal').style.display = 'block'; }
         function closeModal() { document.getElementById('modal').style.display = 'none'; }
 
         window.onload = init;
