@@ -17,10 +17,10 @@
         </div>
         <nav class="sidebar-nav">
             <button onclick="showPage('dashboard')" class="nav-btn" id="btn-dashboard"><i class="fas fa-chart-pie"></i> Dashboard</button>
-            <button onclick="showPage('home')" class="nav-btn active-btn" id="btn-home"><i class="fas fa-th-large"></i> Início</button>
+            <button onclick="showPage('home')" class="nav-btn active-btn" id="btn-home"><i class="fas fa-home"></i> Início</button>
             <button onclick="showPage('diagnostica')" class="nav-btn" id="btn-diagnostica"><i class="fas fa-microscope"></i> Diagnóstica</button>
             <button onclick="showPage('intervencionista')" class="nav-btn" id="btn-intervencionista"><i class="fas fa-user-md"></i> Intervencionista</button>
-            <button onclick="showPage('fluxos')" class="nav-btn" id="btn-fluxos"><i class="fas fa-project-diagram"></i> Fluxos</button>
+            <button onclick="showPage('fluxos')" class="nav-btn" id="btn-fluxos"><i class="fas fa-project-diagram"></i> Departamentos</button>
             <button onclick="showPage('agendas')" class="nav-btn" id="btn-agendas"><i class="fas fa-calendar-alt"></i> Parametrização</button>
         </nav>
     </aside>
@@ -30,12 +30,12 @@
         <section id="dashboard" class="page">
             <div class="header-premium">
                 <h1>Dashboard de Performance</h1>
-                <p>Indicadores de ocupação e volume operacional mensal.</p>
+                <p>Monitoramento de ocupação e volume operacional projetado.</p>
             </div>
             <div class="dash-grid-full">
                 <div class="chart-card-premium">
-                    <h3>Volume por Modalidade</h3>
-                    <div class="simulated-chart">Gráfico de Performance</div>
+                    <h3>Análise de Capacidade Mensal</h3>
+                    <div class="simulated-chart">Gráfico de Volume Operacional</div>
                 </div>
             </div>
         </section>
@@ -43,7 +43,7 @@
         <section id="home" class="page active">
             <div class="hero-premium">
                 <h1>Portal de Consulta de Fluxos<br><span>Medicina Diagnóstica</span></h1>
-                <p>Hospital Vera Cruz | Excelência e Governança</p>
+                <p>Hospital Vera Cruz | Gestão, Excelência e Governança</p>
                 <div class="hero-cards">
                     <div class="h-card" onclick="showPage('diagnostica')">
                         <i class="fas fa-notes-medical"></i>
@@ -62,23 +62,23 @@
                 <h2>Medicina Diagnóstica</h2>
                 <div class="search-sophisticated">
                     <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Localizar exame..." onkeyup="filtrar(this, 'grid-diag')">
+                    <input type="text" placeholder="Localizar exame ou categoria..." onkeyup="filtrar(this, 'grid-diag')">
                 </div>
             </div>
             <div class="grid-flex" id="grid-diag">
                 <div class="card-p">
                     <div class="card-p-header">Anestesia</div>
                     <div class="card-p-list">
-                        <button onclick="openModal('Anestesia US', 'Protocolo para Ultrassom.')">Anestesia para US</button>
-                        <button onclick="openModal('Anestesia Tomo', 'Protocolo para Tomografia.')">Anestesia para Tomo</button>
-                        <button onclick="openModal('Anestesia RM', 'Protocolo para Ressonância.')">Anestesia para RM</button>
+                        <button onclick="openModal('Anestesia US', 'Protocolo Anestesia para Ultrassom.')">Anestesia para US</button>
+                        <button onclick="openModal('Anestesia Tomo', 'Protocolo Anestesia para Tomografia.')">Anestesia para Tomo</button>
+                        <button onclick="openModal('Anestesia RM', 'Protocolo Anestesia para Ressonância.')">Anestesia para RM</button>
                     </div>
                 </div>
                 <div class="card-p">
                     <div class="card-p-header">Densitometria</div>
                     <div class="card-p-list">
                         <button onclick="openModal('VFL', 'Avaliação de fratura vertebral.')">Avaliação VFL</button>
-                        <button onclick="openModal('Corpo Inteiro', 'Densitometria corporal total.')">Corpo Inteiro</button>
+                        <button onclick="openModal('Corpo Inteiro', 'Densitometria total.')">Corpo Inteiro</button>
                         <button onclick="openModal('Um Segmento', 'Coluna ou Fêmur.')">Um Segmento</button>
                         <button onclick="openModal('Dois Segmentos', 'Coluna e Fêmur.')">Dois Segmentos</button>
                     </div>
@@ -86,37 +86,49 @@
                 <div class="card-p">
                     <div class="card-p-header">Mamografia</div>
                     <div class="card-p-list">
-                        <button onclick="openModal('Digital', 'Digital bilateral.')">MAMOGRAFIA DIGITAL</button>
-                        <button onclick="openModal('Tomossíntese', 'Reconstrução 3D.')">TOMOSSÍNTESE MAMÁRIA</button>
-                        <button onclick="openModal('Ampliação', 'Manobra de Eklund.')">MAMA AMPLIAÇÃO</button>
+                        <button onclick="openModal('Digital', 'MAMOGRAFIA DIGITAL.')">MAMOGRAFIA DIGITAL</button>
+                        <button onclick="openModal('Tomossíntese', 'TOMOSSÍNTESE MAMÁRIA.')">TOMOSSÍNTESE MAMÁRIA</button>
+                        <button onclick="openModal('Ampliação', 'MAMA AMPLIAÇÃO.')">MAMA AMPLIAÇÃO</button>
                     </div>
                 </div>
                 <div class="card-p">
                     <div class="card-p-header">Raio X</div>
                     <div class="card-p-list">
-                        <button>Abdome</button><button>Coluna</button><button>Crânio</button><button>Tórax</button>
-                        <button>Contrastados</button><button>Membro Superior</button><button>Membro Inferior</button>
+                        <button onclick="openModal('RX Abdome', 'Protocolo Abdome.')">Abdome</button>
+                        <button onclick="openModal('RX Coluna', 'Protocolo Coluna.')">Coluna</button>
+                        <button onclick="openModal('RX Crânio', 'Protocolo Crânio.')">Crânio</button>
+                        <button onclick="openModal('RX Membros', 'Superiores e Inferiores.')">Membros</button>
+                        <button onclick="openModal('RX Contrastados', 'Exames com contraste.')">Contrastados</button>
+                        <button onclick="openModal('RX Tórax', 'Protocolo Tórax.')">Tórax</button>
                     </div>
                 </div>
                 <div class="card-p">
                     <div class="card-p-header">Ressonância Magnética</div>
                     <div class="card-p-list">
-                        <button>Cardio</button><button>Fetal</button><button>Mama</button>
-                        <button>Medicina Interna</button><button>Neuro</button><button>Músculo</button>
+                        <button onclick="openModal('RM Cardio', 'Protocolo Cardio.')">Cardio</button>
+                        <button onclick="openModal('RM Fetal', 'Protocolo Fetal.')">Fetal</button>
+                        <button onclick="openModal('RM Mama', 'Protocolo Mama.')">Mama</button>
+                        <button onclick="openModal('RM Medicina Interna', 'Abdome, Pelve, Próstata.')">Medicina Interna</button>
+                        <button onclick="openModal('RM Neuro', 'Encéfalo e Coluna.')">Neuro</button>
+                        <button onclick="openModal('RM Músculo', 'Articulações.')">Músculo</button>
                     </div>
                 </div>
                 <div class="card-p">
                     <div class="card-p-header">Tomografia</div>
                     <div class="card-p-list">
-                        <button>Cardio</button><button>Coluna</button><button>Neuro</button>
-                        <button>Medicina Interna</button><button>Músculo</button>
+                        <button onclick="openModal('TC Cardio', 'Escore de Cálcio e Angio.')">Cardio</button>
+                        <button onclick="openModal('TC Medicina Interna', 'Tórax e Abdome.')">Medicina Interna</button>
+                        <button onclick="openModal('TC Neuro', 'Crânio e Face.')">Neuro</button>
+                        <button onclick="openModal('TC Músculo', 'Segmentos Ósseos.')">Músculo</button>
                     </div>
                 </div>
                 <div class="card-p">
                     <div class="card-p-header">Ultrassonografia</div>
                     <div class="card-p-list">
-                        <button>US Doppler</button><button>US Geral</button><button>US Mama</button>
-                        <button>US Músculo</button><button>US Obstétrico</button>
+                        <button onclick="openModal('US Doppler', 'Vasos e Carótidas.')">US Doppler</button>
+                        <button onclick="openModal('US Geral', 'Abdome e Tireoide.')">US Geral</button>
+                        <button onclick="openModal('US Mama', 'Mamas e Axilas.')">US Mama</button>
+                        <button onclick="openModal('US Obstétrico', 'TN e Morfológico.')">US Obstétrico</button>
                     </div>
                 </div>
             </div>
@@ -162,11 +174,11 @@
             <div class="page-header-premium"><h2>Parametrização Hospitalar</h2></div>
             
             <div class="kpi-floating-container">
-                <div class="kpi-btn green">Eletivo + Espec: <span id="valElEsp">0</span></div>
-                <div class="kpi-btn blue">Urgência: <span id="valUr">0</span></div>
-                <div class="kpi-btn red">Manutenção: <span id="valMa">0</span></div>
-                <div class="kpi-btn orange">Respiros: <span id="valRe">0</span></div>
-                <div class="kpi-btn dark">Total: <span id="valTotal">0</span></div>
+                <div class="kpi-pill green">Eletivo + Espec: <span id="valElEsp">0</span></div>
+                <div class="kpi-pill blue">Urgência: <span id="valUr">0</span></div>
+                <div class="kpi-pill red">Manutenção: <span id="valMa">0</span></div>
+                <div class="kpi-pill orange">Respiros: <span id="valRe">0</span></div>
+                <div class="kpi-pill dark">Total Slots: <span id="valTotal">0</span></div>
             </div>
 
             <div class="agenda-container-premium">
@@ -182,10 +194,10 @@
                         <label>Ajuste Massa:</label>
                         <select id="bulkStatus">
                             <option value="eletivo">Eletivo</option>
-                            <option value="ma">Manut.</option>
+                            <option value="manutencao">Manut.</option>
                             <option value="ps">P.S.</option>
                         </select>
-                        <button onclick="aplicarMassa()">Preencher Grade</button>
+                        <button onclick="aplicarMassa()">Aplicar</button>
                     </div>
                 </div>
 
@@ -205,7 +217,7 @@
             </div>
         </section>
 
-        <footer class="version-tag">v 12.0 - 2026 | Vera Cruz</footer>
+        <footer class="version-footer">v 14.0 - 2026 | Hospital Vera Cruz</footer>
     </main>
 
     <div id="modal" class="modal">
