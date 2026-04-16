@@ -1,5 +1,5 @@
-let currentAgId = 'ag1';
-const monthsNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+let currentAg = 'ag1';
+const monthsExt = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
 function showPage(p) {
     document.querySelectorAll('.page').forEach(pg => pg.classList.remove('active'));
@@ -18,21 +18,13 @@ function openModal(t, txt) {
 
 function closeModal() { document.getElementById('modal').style.display = 'none'; }
 
-function filtrar(contexto) {
-    const term = document.getElementById(contexto === 'diagnostica' ? 'searchDiag' : 'searchInter').value.toLowerCase();
-    const grid = document.getElementById(contexto === 'diagnostica' ? 'grid-diagnostica' : 'grid-intervencionista');
-    const buttons = grid.querySelectorAll('button');
-    buttons.forEach(b => b.style.display = b.innerText.toLowerCase().includes(term) ? "block" : "none");
-}
-
-// LÓGICA DE AGENDA HOSPITALAR
 function initSystem() {
     const m = document.getElementById('selMes');
     const a = document.getElementById('selAno');
     if (!m) return;
     const d = new Date();
     m.innerHTML = ""; a.innerHTML = "";
-    monthsNames.forEach((name, i) => m.add(new Option(name, i)));
+    monthsExt.forEach((name, i) => m.add(new Option(name, i)));
     for (let i = d.getFullYear(); i <= d.getFullYear() + 2; i++) a.add(new Option(i, i));
     m.value = d.getMonth();
 
@@ -45,18 +37,13 @@ function initSystem() {
         b.onclick = function() { selectAg(`ag${i}`, this); };
         tabs.appendChild(b);
     }
-    carregarAg();
 }
 
 function selectAg(id, btn) {
-    currentAgId = id;
+    currentAg = id;
     document.querySelectorAll('.tab-link').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     carregarAg();
-}
-
-function forcarGrade() {
-    gerarGradeAg();
 }
 
 function gerarGradeAg() {
@@ -72,14 +59,7 @@ function gerarGradeAg() {
         let m = (min % 60).toString().padStart(2, '0');
         html += `<tr><td style="background:#f8fafc; font-weight:700;">${h}:${m}</td>`;
         for (let d = 0; d < 7; d++) {
-            const id = `s-${min}-${d}`;
-            html += `<td>
-                <select class="s-inp" id="${id}" onchange="calcAg()">
-                    <option value="ex">Eletivo</option>
-                    <option value="ma">Manut.</option>
-                    <option value="ur">Urgência</option>
-                </select>
-            </td>`;
+            html += `<td><select class="s-inp" id="s-${min}-${d}" onchange="calcAg()"><option value="ex">Eletivo</option><option value="ma">Manut.</option><option value="ur">Urgência</option></select></td>`;
         }
         html += `</tr>`;
     }
@@ -87,24 +67,31 @@ function gerarGradeAg() {
     calcAg();
 }
 
+function aplicarMassa() {
+    const status = document.getElementById('bulkStatus').value;
+    document.querySelectorAll('.s-inp').forEach(s => {
+        s.value = status;
+    });
+    calcAg();
+}
+
 function calcAg() {
     const sels = document.querySelectorAll('.s-inp');
-    let ex = 0, ma = 0, ur = 0;
+    let ex = 0, ma = 0;
     sels.forEach(s => {
-        if(s.value === 'ma') { s.style.backgroundColor = '#fee2e2'; ma++; }
-        else if(s.value === 'ur') { s.style.backgroundColor = '#eff6ff'; ur++; }
-        else { s.style.backgroundColor = '#dcfce7'; ex++; }
+        s.style.backgroundColor = s.value === 'ma' ? '#fee2e2' : (s.value === 'ur' ? '#eff6ff' : '#dcfce7');
+        if(s.value === 'ex') ex++; 
+        if(s.value === 'ma') ma++;
     });
-    const fator = 4.3; // Média mensal
+    const fator = 4.3; // Média de semanas/mês
     document.getElementById('valEx').innerText = Math.round(ex * fator);
     document.getElementById('valMa').innerText = Math.round(ma * fator);
-    document.getElementById('valUr').innerText = Math.round(ur * fator);
 }
 
 function salvarAg() {
     const mes = document.getElementById('selMes').value;
     const ano = document.getElementById('selAno').value;
-    const key = `vc7_${currentAgId}_${mes}_${ano}`;
+    const key = `v8_${currentAg}_${mes}_${ano}`;
     const dados = { 
         nome: document.getElementById('renameAg').value, 
         slot: document.getElementById('slotMin').value, 
@@ -114,25 +101,22 @@ function salvarAg() {
         dados.mapa.push({ id: s.id, v: s.value });
     });
     localStorage.setItem(key, JSON.stringify(dados));
-    alert("Parametrização Salva!");
+    alert("Dados Gravados!");
 }
 
 function carregarAg() {
     const mes = document.getElementById('selMes').value;
     const ano = document.getElementById('selAno').value;
-    const key = `vc7_${currentAgId}_${mes}_${ano}`;
+    const key = `v8_${currentAg}_${mes}_${ano}`;
     const salvo = localStorage.getItem(key);
     
-    // Primeiro gera a grade limpa
-    gerarGradeAg();
+    gerarGradeAg(); // Gera a base primeiro
 
     if (salvo) {
         const d = JSON.parse(salvo);
         document.getElementById('renameAg').value = d.nome || "";
         document.getElementById('slotMin').value = d.slot || 20;
-        
-        // Se o slot salvo for diferente do padrão, regenera a grade antes de preencher
-        if(d.slot != 20) gerarGradeAg();
+        if(d.slot != 20) gerarGradeAg(); // Re-gera se o slot for diferente
 
         d.mapa.forEach(item => {
             const s = document.getElementById(item.id);
@@ -142,14 +126,14 @@ function carregarAg() {
         document.getElementById('renameAg').value = "";
     }
     document.getElementById('capTit').innerText = document.getElementById('renameAg').value || "Agenda";
-    document.getElementById('capPeriodo').innerText = monthsNames[mes] + " / " + ano;
+    document.getElementById('capPeriodo').innerText = monthsExt[mes] + " / " + ano;
     calcAg();
 }
 
 function exportarAg() {
     html2canvas(document.getElementById('areaCaptura')).then(canvas => {
         const link = document.createElement('a');
-        link.download = `Agenda_${currentAgId}.png`;
+        link.download = `Agenda_${currentAg}.png`;
         link.href = canvas.toDataURL();
         link.click();
     });
