@@ -1,31 +1,33 @@
-let currentAg = 'ag1';
-const monthsExt = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+let curAg = 'ag1';
+const monthsNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
 function showPage(p) {
     document.querySelectorAll('.page').forEach(pg => pg.classList.remove('active'));
     document.getElementById(p).classList.add('active');
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-btn'));
-    const btn = document.getElementById('btn-' + p);
-    if (btn) btn.classList.add('active-btn');
+    const b = document.getElementById('btn-' + p);
+    if (b) b.classList.add('active-btn');
     if (p === 'agendas') carregarAg();
 }
 
-function filtrar(input, gridId) {
-    const term = input.value.toLowerCase();
-    const buttons = document.querySelectorAll(`#${gridId} button`);
-    buttons.forEach(b => b.style.display = b.innerText.toLowerCase().includes(term) ? "block" : "none");
+function filtrar(inp, gridId) {
+    const t = inp.value.toLowerCase();
+    const btns = document.querySelectorAll(`#${gridId} button`);
+    btns.forEach(b => b.style.display = b.innerText.toLowerCase().includes(t) ? "block" : "none");
 }
 
 function selectAg(id, btn) {
-    currentAg = id;
+    curAg = id;
     document.querySelectorAll('.tab-link').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     carregarAg();
 }
 
+function forcarGrade() { gerarGradeAg(); }
+
 function gerarGradeAg() {
     const slot = parseInt(document.getElementById('slotMin').value) || 20;
-    const container = document.getElementById('gradeDiv');
+    const cont = document.getElementById('gradeDiv');
     const dias = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
     let html = `<table class="grade-table"><thead><tr><th>Hora</th>`;
     dias.forEach(d => html += `<th>${d}</th>`);
@@ -47,18 +49,18 @@ function gerarGradeAg() {
                     <option value="bloqueio">Bloqueado</option>
                     <option value="especifico">Específico</option>
                 </select>
-                <input type="text" id="${id}-t" class="input-especifico" placeholder="Qual exame?">
+                <input type="text" id="${id}-tx" class="input-especifico-t" placeholder="...">
             </td>`;
         }
         html += `</tr>`;
     }
-    container.innerHTML = html + `</tbody></table>`;
+    cont.innerHTML = html + `</tbody></table>`;
     calcAg();
 }
 
 function toggleEspec(sel) {
-    const t = document.getElementById(sel.id + "-t");
-    t.style.display = sel.value === 'especifico' ? "block" : "none";
+    const tx = document.getElementById(sel.id + "-tx");
+    tx.style.display = sel.value === 'especifico' ? "block" : "none";
     calcAg();
 }
 
@@ -85,47 +87,46 @@ function calcAg() {
 }
 
 function salvarAg() {
-    const key = `v10_${currentAg}_${document.getElementById('selMes').value}_${document.getElementById('selAno').value}`;
-    const dados = { nome: document.getElementById('renameAg').value, slot: document.getElementById('slotMin').value, mapa: [] };
+    const key = `v11_${curAg}_${document.getElementById('selMes').value}_${document.getElementById('selAno').value}`;
+    const d = { nome: document.getElementById('renameAg').value, slot: document.getElementById('slotMin').value, mapa: [] };
     document.querySelectorAll('.s-inp').forEach(s => {
-        dados.mapa.push({ id: s.id, v: s.value, t: document.getElementById(s.id + "-t").value });
+        d.mapa.push({ id: s.id, v: s.value, t: document.getElementById(s.id + "-tx").value });
     });
-    localStorage.setItem(key, JSON.stringify(dados));
+    localStorage.setItem(key, JSON.stringify(d));
     alert("Parametrização Salva!");
 }
 
 function carregarAg() {
-    const key = `v10_${currentAg}_${document.getElementById('selMes').value}_${document.getElementById('selAno').value}`;
-    const salvo = localStorage.getItem(key);
+    const key = `v11_${curAg}_${document.getElementById('selMes').value}_${document.getElementById('selAno').value}`;
+    const s = localStorage.getItem(key);
     gerarGradeAg();
-    if(salvo) {
-        const d = JSON.parse(salvo);
+    if(s) {
+        const d = JSON.parse(s);
         document.getElementById('renameAg').value = d.nome || "";
         document.getElementById('slotMin').value = d.slot || 20;
         if(d.slot != 20) gerarGradeAg();
         d.mapa.forEach(item => {
-            const s = document.getElementById(item.id);
-            if(s) {
-                s.value = item.v;
-                const t = document.getElementById(item.id + "-t");
-                if(t) { t.value = item.t || ""; if(item.v === 'especifico') t.style.display = "block"; }
+            const el = document.getElementById(item.id);
+            if(el) {
+                el.value = item.v;
+                const tx = document.getElementById(item.id + "-tx");
+                if(tx) { tx.value = item.t || ""; if(item.v === 'especifico') tx.style.display = "block"; }
             }
         });
     } else {
         document.getElementById('renameAg').value = "";
     }
     document.getElementById('capTit').innerText = document.getElementById('renameAg').value || "Agenda";
-    document.getElementById('capPeriodo').innerText = monthsExt[document.getElementById('selMes').value] + " / " + document.getElementById('selAno').value;
+    document.getElementById('capPeriodo').innerText = monthsNames[document.getElementById('selMes').value] + " / " + document.getElementById('selAno').value;
     calcAg();
 }
 
 function aplicarMassa() {
-    const status = document.getElementById('bulkStatus').value;
+    const st = document.getElementById('bulkStatus').value;
     document.querySelectorAll('.s-inp').forEach(s => {
-        s.value = status;
+        s.value = st;
         toggleEspec(s);
     });
-    calcAg();
 }
 
 function openModal(t, txt) {
@@ -140,7 +141,7 @@ window.onload = () => {
     const m = document.getElementById('selMes');
     const a = document.getElementById('selAno');
     const d = new Date();
-    monthsExt.forEach((name, i) => m.add(new Option(name, i)));
+    monthsNames.forEach((name, i) => m.add(new Option(name, i)));
     for (let i = d.getFullYear(); i <= d.getFullYear() + 2; i++) a.add(new Option(i, i));
     m.value = d.getMonth();
 
