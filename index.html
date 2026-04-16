@@ -18,7 +18,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
         body { display: flex; background: var(--bg); height: 100vh; overflow: hidden; }
 
-        /* Sidebar Blindada */
+        /* Sidebar */
         .sidebar { width: 280px; background: var(--navy); color: white; display: flex; flex-direction: column; flex-shrink: 0; height: 100vh; z-index: 100; border-right: 1px solid rgba(255,255,255,0.1); }
         .sidebar-header { padding: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); text-align: center; }
         .logo-box { width: 50px; height: 50px; background: var(--teal); color: var(--navy); font-weight: 800; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 1.2rem; }
@@ -28,11 +28,16 @@
         .nav-btn:hover { color: white; background: rgba(255,255,255,0.05); }
         .nav-btn.active { background: var(--primary); color: white; border-left: 6px solid var(--teal); font-weight: 700; }
 
-        /* Conteúdo Principal */
+        /* Main Content */
         .main-content { flex: 1; padding: 40px; overflow-y: auto; position: relative; }
         .page { display: none; animation: fadeIn 0.4s ease; }
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Pesquisa */
+        .search-area { position: relative; max-width: 500px; margin-bottom: 30px; }
+        .search-area i { position: absolute; left: 15px; top: 13px; color: var(--primary); }
+        .search-area input { width: 100%; padding: 12px 15px 12px 45px; border-radius: 30px; border: 1px solid #e2e8f0; box-shadow: var(--shadow); outline: none; font-size: 0.9rem; background: var(--white); }
 
         /* Cards Layout */
         .grid-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
@@ -42,33 +47,32 @@
         .card-body button { background: #f1f5f9; border: none; padding: 10px; border-radius: 10px; font-weight: 600; text-align: left; cursor: pointer; transition: 0.2s; font-size: 0.8rem; }
         .card-body button:hover { background: var(--primary); color: white; transform: translateX(5px); }
         .teal-card { border-top-color: var(--teal); }
+        .gray-card { border-top-color: #64748b; }
 
-        /* Agenda UI */
+        /* Agenda UI e Print Container */
+        #printContainer { padding: 20px; background: var(--bg); border-radius: 20px; }
         .kpi-row { display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; }
         .kpi-pill { padding: 12px 20px; border-radius: 50px; color: white; font-weight: 700; font-size: 0.75rem; box-shadow: var(--shadow); }
         .pill-green { background: #10b981; } .pill-blue { background: #3b82f6; } .pill-red { background: #ef4444; } .pill-orange { background: #f59e0b; } .pill-dark { background: #1e293b; }
 
-        .agenda-system { display: flex; gap: 20px; height: calc(100vh - 250px); }
-        .ag-sidebar { width: 260px; background: white; border-radius: 25px; padding: 25px; box-shadow: var(--shadow); overflow-y: auto; }
-        .tab-btn { width: 100%; padding: 10px; border: 1px solid #f1f5f9; border-radius: 10px; cursor: pointer; font-size: 0.8rem; font-weight: 700; background: white; text-align: left; margin-bottom: 5px; transition: 0.2s; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .agenda-system { display: flex; gap: 20px; align-items: flex-start; }
+        .ag-sidebar { width: 280px; background: white; border-radius: 25px; padding: 25px; box-shadow: var(--shadow); flex-shrink: 0; }
+        .tab-btn { width: 100%; padding: 10px; border: 1px solid #f1f5f9; border-radius: 10px; cursor: pointer; font-size: 0.8rem; font-weight: 700; background: white; text-align: left; margin-bottom: 5px; transition: 0.2s; overflow: hidden; text-overflow: ellipsis; }
         .tab-btn.active { background: var(--primary); color: white; }
         
         .ag-field { margin-bottom: 12px; }
         .ag-field label { font-size: 0.65rem; font-weight: 700; color: var(--primary); display: block; margin-bottom: 3px; }
         .ag-field select, .ag-field input { width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #ddd; font-size: 0.8rem; }
 
-        .grade-wrapper { flex: 1; background: white; border-radius: 20px; overflow: auto; border: 1px solid #f1f5f9; padding: 20px; }
+        .grade-wrapper { flex: 1; background: white; border-radius: 20px; padding: 25px; box-shadow: var(--shadow); border: 1px solid #f1f5f9; }
         .grade-table { width: 100%; border-collapse: collapse; font-size: 0.7rem; }
-        .grade-table th { background: var(--navy); color: white; padding: 12px; position: sticky; top: 0; z-index: 5; }
-        .grade-table td { border: 1px solid #f1f5f9; padding: 4px; text-align: center; }
+        .grade-table th { background: var(--navy); color: white; padding: 12px; }
+        .grade-table td { border: 1px solid #f1f5f9; padding: 4px; text-align: center; min-width: 80px; }
         .total-row { background: #f8fafc; font-weight: 800; color: var(--primary); border-top: 2px solid #ddd; }
         
+        .s-inp { width: 100%; border: none; background: transparent; font-size: 0.65rem; font-weight: 600; cursor: pointer; text-align: center; }
         .especifico-input { width: 100%; border: 1px solid #ddd; border-radius: 4px; font-size: 0.6rem; margin-top: 3px; display: none; padding: 2px; }
 
-        /* Rodapé e Pesquisa */
-        .search-area { position: relative; max-width: 500px; margin-bottom: 30px; }
-        .search-area i { position: absolute; left: 15px; top: 13px; color: var(--primary); }
-        .search-area input { width: 100%; padding: 12px 15px 12px 45px; border-radius: 30px; border: 1px solid #e2e8f0; box-shadow: var(--shadow); outline: none; font-size: 0.9rem; background: var(--white); }
         .footer-version { position: fixed; bottom: 20px; right: 40px; font-size: 0.75rem; color: #cbd5e1; font-weight: 800; }
     </style>
 </head>
@@ -106,13 +110,10 @@
         </section>
 
         <section id="diagnostica" class="page">
-            <div class="search-area">
-                <i class="fas fa-search"></i>
-                <input type="text" placeholder="Pesquisar exames..." onkeyup="filterCards(this, 'grid-diag')">
-            </div>
+            <div class="search-area"><i class="fas fa-search"></i><input type="text" placeholder="Pesquisar exames..." onkeyup="filterCards(this, 'grid-diag')"></div>
             <div class="grid-layout" id="grid-diag">
                 <div class="card-unit"><div class="card-header">ANESTESIA</div><div class="card-body"><button>Anestesia p/ US</button><button>Anestesia p/ Tomo</button><button>Anestesia p/ RM</button></div></div>
-                <div class="card-unit"><div class="card-header">RAIO X</div><div class="card-body"><button>Abdome</button><button>Coluna</button><button>Crânio</button><button>Tórax</button><button>Contrastados</button></div></div>
+                <div class="card-unit"><div class="card-header">RAIO X</div><div class="card-body"><button>Abdome</button><button>Coluna</button><button>Crânio</button><button>Tórax</button></div></div>
                 <div class="card-unit"><div class="card-header">RESSONÂNCIA MAGNÉTICA</div><div class="card-body"><button>Cardio</button><button>Fetal</button><button>Neuro</button><button>Medicina Interna</button></div></div>
                 <div class="card-unit"><div class="card-header">TOMOGRAFIA</div><div class="card-body"><button>Cardio</button><button>Coluna</button><button>Medicina Interna</button><button>Neuro</button></div></div>
                 <div class="card-unit"><div class="card-header">ULTRASSONOGRAFIA</div><div class="card-body"><button>Geral</button><button>Doppler</button><button>Obstétrico</button><button>Músculo</button></div></div>
@@ -120,44 +121,48 @@
         </section>
 
         <section id="intervencionista" class="page">
-            <div class="search-area">
-                <i class="fas fa-search"></i>
-                <input type="text" placeholder="Pesquisar procedimentos..." onkeyup="filterCards(this, 'grid-inter')">
-            </div>
+            <div class="search-area"><i class="fas fa-search"></i><input type="text" placeholder="Pesquisar procedimentos..." onkeyup="filterCards(this, 'grid-inter')"></div>
             <div class="grid-layout" id="grid-inter">
                 <div class="card-unit teal-card"><div class="card-header">PROCEDIMENTO PROFUNDO</div><div class="card-body"><button>Ablação</button><button>Biópsia</button><button>Nefrostomia</button><button>Paracentese</button></div></div>
                 <div class="card-unit teal-card"><div class="card-header">PRÓSTATA</div><div class="card-body"><button>Transretal Simples</button><button>Transretal com Fusão</button></div></div>
-                <div class="card-unit teal-card"><div class="card-header">DIVERSOS</div><div class="card-body"><button>Anestesia</button><button>Artro RM</button><button>Consulta</button></div></div>
+            </div>
+        </section>
+
+        <section id="fluxos" class="page">
+            <div class="grid-layout">
+                <div class="card-unit gray-card"><div class="card-header">ATENDIMENTO</div><div class="card-body"><button>Call Center</button><button>Recepção</button></div></div>
+                <div class="card-unit gray-card"><div class="card-header">ASSISTENCIAL</div><div class="card-body"><button>Enfermagem</button><button>Técnico de Radiologia</button></div></div>
+                <div class="card-unit gray-card"><div class="card-header">MÉDICO</div><div class="card-body"><button>Médico Radiologista</button></div></div>
             </div>
         </section>
 
         <section id="agendas" class="page">
-            <div id="exportContent"> <div class="kpi-row">
-                    <div class="kpi-pill pill-green">Eletivo + Específico: <span id="kpiEl">0</span></div>
-                    <div class="kpi-pill pill-blue">Internado + Pronto Socorro: <span id="kpiUr">0</span></div>
-                    <div class="kpi-pill pill-red">Manutenção: <span id="kpiMa">0</span></div>
-                    <div class="kpi-pill pill-orange">Respiros: <span id="kpiRe">0</span></div>
-                    <div class="kpi-pill pill-dark">Total Mensal: <span id="kpiTo">0</span></div>
-                </div>
-                
-                <div class="agenda-system">
-                    <div class="ag-sidebar" data-html2canvas-ignore="true">
-                        <div id="agTabs" class="ag-tabs"></div>
-                        <div class="ag-field"><label>Mês:</label><select id="selMes" onchange="loadAg()"></select></div>
-                        <div class="ag-field"><label>Hora Início:</label><input type="time" id="timeStart" value="06:00" onchange="gerarGrade()"></div>
-                        <div class="ag-field"><label>Hora Término:</label><input type="time" id="timeEnd" value="23:00" onchange="gerarGrade()"></div>
-                        <div class="ag-field"><label>Duração Slot (min):</label><input type="number" id="slotMin" value="20" oninput="gerarGrade()"></div>
-                        <div class="ag-field"><label>Identificação da Sala:</label><input type="text" id="renameAg" placeholder="Ex: RM Sala 1" oninput="updateRoomName(this.value)"></div>
-                        
-                        <button onclick="saveAg()" style="width:100%; padding:12px; margin-top:10px; background:var(--primary); color:white; border:none; border-radius:10px; cursor:pointer; font-weight:700;">Gravar Mês</button>
-                        <button onclick="exportAgendaPNG()" style="width:100%; padding:10px; margin-top:10px; background:var(--navy); color:white; border:none; border-radius:10px; cursor:pointer;">Exportar PNG</button>
-                        <button onclick="applyBulk()" style="width:100%; padding:10px; margin-top:10px; background:var(--teal); border:none; border-radius:10px; cursor:pointer;">Preencher Eletivo</button>
-                    </div>
+            <div class="agenda-system">
+                <div class="ag-sidebar">
+                    <div id="agTabs" class="ag-tabs"></div>
+                    <div class="ag-field"><label>Mês:</label><select id="selMes" onchange="loadAg()"></select></div>
+                    <div class="ag-field"><label>Hora Início:</label><input type="time" id="timeStart" value="06:00" onchange="gerarGrade()"></div>
+                    <div class="ag-field"><label>Hora Término:</label><input type="time" id="timeEnd" value="23:00" onchange="gerarGrade()"></div>
+                    <div class="ag-field"><label>Duração Slot (min):</label><input type="number" id="slotMin" value="20" oninput="gerarGrade()"></div>
+                    <div class="ag-field"><label>Identificação da Sala:</label><input type="text" id="renameAg" placeholder="Ex: RM Sala 1" oninput="updateRoomName(this.value)"></div>
                     
+                    <button onclick="saveAg()" style="width:100%; padding:12px; margin-top:10px; background:var(--primary); color:white; border:none; border-radius:10px; cursor:pointer; font-weight:700;">Gravar Mês</button>
+                    <button onclick="exportFullPNG()" style="width:100%; padding:12px; margin-top:10px; background:var(--navy); color:white; border:none; border-radius:10px; cursor:pointer; font-weight:700;"><i class="fas fa-camera"></i> Exportar PNG</button>
+                    <button onclick="applyBulk()" style="width:100%; padding:10px; margin-top:10px; background:var(--teal); border:none; border-radius:10px; cursor:pointer;">Preencher Eletivo</button>
+                </div>
+
+                <div id="printContainer">
+                    <div class="kpi-row">
+                        <div class="kpi-pill pill-green">Eletivo: <span id="kpiEl">0</span></div>
+                        <div class="kpi-pill pill-blue">Urgência: <span id="kpiUr">0</span></div>
+                        <div class="kpi-pill pill-red">Maint: <span id="kpiMa">0</span></div>
+                        <div class="kpi-pill pill-dark">Total: <span id="kpiTo">0</span></div>
+                    </div>
+
                     <div class="grade-wrapper">
-                        <div style="text-align: center; margin-bottom: 15px;">
-                            <h2 id="displayRoomName" style="color: var(--navy);">Agenda</h2>
-                            <p id="displayPeriod" style="font-weight: 600; color: var(--text);"></p>
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <h2 id="displayRoomName" style="color: var(--navy); font-size: 1.8rem; text-transform: uppercase;">Agenda 01</h2>
+                            <p id="displayPeriod" style="font-weight: 700; color: var(--text); font-size: 1.1rem;"></p>
                         </div>
                         <div id="gradeDiv"></div>
                     </div>
@@ -165,7 +170,7 @@
             </div>
         </section>
 
-        <footer class="footer-version">Versão 26.0 - Hospital Vera Cruz</footer>
+        <footer class="footer-version">Versão 27.0 - Hospital Vera Cruz</footer>
     </main>
 
     <script>
@@ -209,10 +214,10 @@
 
         function gerarGrade() {
             const slot = parseInt(document.getElementById('slotMin').value) || 20;
-            const startStr = document.getElementById('timeStart').value.split(':');
-            const endStr = document.getElementById('timeEnd').value.split(':');
-            const startM = parseInt(startStr[0])*60 + parseInt(startStr[1]);
-            const endM = parseInt(endStr[0])*60 + parseInt(endStr[1]);
+            const sT = document.getElementById('timeStart').value.split(':');
+            const eT = document.getElementById('timeEnd').value.split(':');
+            const startM = parseInt(sT[0])*60 + parseInt(sT[1]);
+            const endM = parseInt(eT[0])*60 + parseInt(eT[1]);
             
             const cont = document.getElementById('gradeDiv');
             const dias = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
@@ -223,14 +228,14 @@
             for (let min = startM; min <= endM; min += slot) {
                 let h = Math.floor(min / 60).toString().padStart(2, '0');
                 let m = (min % 60).toString().padStart(2, '0');
-                html += `<tr><td style="font-weight:700; background:#f8fafc;">${h}:${m}</td>`;
+                html += `<tr><td style="font-weight:700; background:#f8fafc; border-right: 2px solid #ddd;">${h}:${m}</td>`;
                 for (let d = 0; d < 7; d++) {
                     const id = `s-${min}-${d}`;
                     html += `<td>
                         <select class="s-inp" id="${id}" data-day="${d}" onchange="toggleEs(this)">
-                            <option value="Eletivo">Eletivo</option><option value="Pronto Socorro">Pronto Socorro</option>
-                            <option value="Internado">Internado</option><option value="Manutenção">Manutenção</option>
-                            <option value="Respiros">Respiros</option><option value="Específico">Específico</option>
+                            <option value="Eletivo">Eletivo</option><option value="Urgência">Urgência</option>
+                            <option value="Maint">Maint</option><option value="Respiro">Respiro</option>
+                            <option value="Específico">Específico</option>
                         </select>
                         <input type="text" id="${id}-tx" class="especifico-input" placeholder="...">
                     </td>`;
@@ -251,28 +256,33 @@
         }
 
         function calcAg() {
-            let el = 0, ur = 0, ma = 0, re = 0;
+            let el = 0, ur = 0, ma = 0;
             let daySums = [0, 0, 0, 0, 0, 0, 0];
             document.querySelectorAll('.s-inp').forEach(s => {
                 const day = parseInt(s.dataset.day);
-                if(s.value !== 'Manutenção' && s.value !== 'Respiros') daySums[day]++;
+                if(s.value !== 'Maint' && s.value !== 'Respiro') daySums[day]++;
                 if(s.value === 'Eletivo' || s.value === 'Específico') el++;
-                else if(s.value === 'Pronto Socorro' || s.value === 'Internado') ur++;
-                else if(s.value === 'Manutenção') ma++;
-                else if(s.value === 'Respiros') re++;
-                s.parentElement.style.backgroundColor = s.value === 'Manutenção' ? '#fee2e2' : (s.value === 'Respiros' ? '#fff7ed' : '#dcfce7');
+                else if(s.value === 'Urgência') ur++;
+                else if(s.value === 'Maint') ma++;
+                
+                let bgColor = '#ffffff';
+                if(s.value === 'Eletivo') bgColor = '#dcfce7';
+                if(s.value === 'Urgência') bgColor = '#dbeafe';
+                if(s.value === 'Maint') bgColor = '#fee2e2';
+                if(s.value === 'Respiro') bgColor = '#fff7ed';
+                if(s.value === 'Específico') bgColor = '#f3e8ff';
+                s.parentElement.style.backgroundColor = bgColor;
             });
             daySums.forEach((sum, i) => { const cell = document.getElementById(`total-day-${i}`); if(cell) cell.innerText = sum; });
             const f = 4.3;
             document.getElementById('kpiEl').innerText = Math.round(el * f);
             document.getElementById('kpiUr').innerText = Math.round(ur * f);
             document.getElementById('kpiMa').innerText = Math.round(ma * f);
-            document.getElementById('kpiRe').innerText = Math.round(re * f);
             document.getElementById('kpiTo').innerText = Math.round(document.querySelectorAll('.s-inp').length * f);
         }
 
         function saveAg() {
-            const key = `v26_${currentAgId}_${document.getElementById('selMes').value}`;
+            const key = `v27_${currentAgId}_${document.getElementById('selMes').value}`;
             const data = { 
                 n: document.getElementById('renameAg').value, s: document.getElementById('slotMin').value,
                 hS: document.getElementById('timeStart').value, hE: document.getElementById('timeEnd').value, m: [] 
@@ -281,13 +291,13 @@
                 data.m.push({ id: s.id, v: s.value, t: document.getElementById(s.id + "-tx").value });
             });
             localStorage.setItem(key, JSON.stringify(data));
-            alert("Agenda Salva!");
+            alert("Sucesso! Mês gravado na memória local.");
         }
 
         function loadAg() {
             const mesIdx = document.getElementById('selMes').value;
             document.getElementById('displayPeriod').innerText = `${months[mesIdx]} / 2026`;
-            const key = `v26_${currentAgId}_${mesIdx}`;
+            const key = `v27_${currentAgId}_${mesIdx}`;
             const s = localStorage.getItem(key);
             if(s) {
                 const d = JSON.parse(s);
@@ -313,13 +323,24 @@
             calcAg();
         }
 
-        async function exportAgendaPNG() {
-            const element = document.getElementById('exportContent');
-            const canvas = await html2canvas(element, { scale: 2 });
-            const link = document.createElement('a');
-            link.download = `Agenda_${document.getElementById('displayRoomName').innerText}_${months[document.getElementById('selMes').value]}.png`;
-            link.href = canvas.toDataURL();
-            link.click();
+        async function exportFullPNG() {
+            const area = document.getElementById('printContainer');
+            // Forçamos o scroll para o topo para garantir captura total
+            window.scrollTo(0,0);
+            
+            html2canvas(area, {
+                scale: 2, // Alta qualidade
+                useCORS: true,
+                backgroundColor: "#f4f7f9", // Cor de fundo do portal
+                logging: false
+            }).then(canvas => {
+                const link = document.createElement('a');
+                const sala = document.getElementById('displayRoomName').innerText;
+                const mes = months[document.getElementById('selMes').value];
+                link.download = `Agenda_${sala}_${mes}.png`;
+                link.href = canvas.toDataURL("image/png");
+                link.click();
+            });
         }
 
         function filterCards(inp, gridId) {
